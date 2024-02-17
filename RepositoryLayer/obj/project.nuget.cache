@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BIjAwjt1xQqiC4tdqhqz2/dTliW3lttMuW4JanEFKdAs4Ku7u9b/TxY5P1UV8PeSUQBjW3kwcfN5IdObubGMzw==",
+  "dgSpecHash": "JLCgri6PICRDF1B1jfMDg05Th7fK0hqs8EMHZX9YOXXM8ngNDsC4FDvGgKtJSGbcqsHTnReKVvKArYk91XqINw==",
   "success": true,
-  "projectFilePath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj",
+  "projectFilePath": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

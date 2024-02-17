@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj",
+      "projectUniqueName": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj",
       "projectName": "Utility",
-      "projectPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj",
+      "projectPath": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj",
       "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-      "outputPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\obj\\",
+      "outputPath": "E:\\ISA-TrainingGit\\Utility\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",

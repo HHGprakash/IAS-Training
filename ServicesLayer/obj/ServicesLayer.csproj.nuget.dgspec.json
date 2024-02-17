@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\TFS-Projects\\IAS-Training\\ServicesLayer\\ServicesLayer.csproj": {}
+    "E:\\ISA-TrainingGit\\ServicesLayer\\ServicesLayer.csproj": {}
   },
   "projects": {
-    "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj": {
+    "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj",
+        "projectUniqueName": "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj",
         "projectName": "DomainLayer",
-        "projectPath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj",
+        "projectPath": "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj",
         "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-        "outputPath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\obj\\",
+        "outputPath": "E:\\ISA-TrainingGit\\DomainLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj": {
-                "projectPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj"
+              "E:\\ISA-TrainingGit\\Utility\\Utility.csproj": {
+                "projectPath": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj"
               }
             }
           }
@@ -68,14 +68,14 @@
         }
       }
     },
-    "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj": {
+    "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj",
+        "projectUniqueName": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj",
         "projectName": "RepositoryLayer",
-        "projectPath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj",
+        "projectPath": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj",
         "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-        "outputPath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\obj\\",
+        "outputPath": "E:\\ISA-TrainingGit\\RepositoryLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,8 +92,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj": {
-                "projectPath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj"
+              "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj"
               }
             }
           }
@@ -154,14 +154,14 @@
         }
       }
     },
-    "E:\\TFS-Projects\\IAS-Training\\ServicesLayer\\ServicesLayer.csproj": {
+    "E:\\ISA-TrainingGit\\ServicesLayer\\ServicesLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\ServicesLayer\\ServicesLayer.csproj",
+        "projectUniqueName": "E:\\ISA-TrainingGit\\ServicesLayer\\ServicesLayer.csproj",
         "projectName": "ServicesLayer",
-        "projectPath": "E:\\TFS-Projects\\IAS-Training\\ServicesLayer\\ServicesLayer.csproj",
+        "projectPath": "E:\\ISA-TrainingGit\\ServicesLayer\\ServicesLayer.csproj",
         "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-        "outputPath": "E:\\TFS-Projects\\IAS-Training\\ServicesLayer\\obj\\",
+        "outputPath": "E:\\ISA-TrainingGit\\ServicesLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -178,14 +178,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj": {
-                "projectPath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj"
+              "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj"
               },
-              "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj": {
-                "projectPath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj"
+              "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj": {
+                "projectPath": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj"
               },
-              "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj": {
-                "projectPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj"
+              "E:\\ISA-TrainingGit\\Utility\\Utility.csproj": {
+                "projectPath": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj"
               }
             }
           }
@@ -224,14 +224,14 @@
         }
       }
     },
-    "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj": {
+    "E:\\ISA-TrainingGit\\Utility\\Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj",
+        "projectUniqueName": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj",
         "projectName": "Utility",
-        "projectPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\Utility.csproj",
+        "projectPath": "E:\\ISA-TrainingGit\\Utility\\Utility.csproj",
         "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-        "outputPath": "E:\\TFS-Projects\\IAS-Training\\Utility\\obj\\",
+        "outputPath": "E:\\ISA-TrainingGit\\Utility\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",

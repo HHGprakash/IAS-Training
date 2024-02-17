@@ -6573,11 +6573,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj",
+      "projectUniqueName": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj",
       "projectName": "RepositoryLayer",
-      "projectPath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\RepositoryLayer.csproj",
+      "projectPath": "E:\\ISA-TrainingGit\\RepositoryLayer\\RepositoryLayer.csproj",
       "packagesPath": "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\",
-      "outputPath": "E:\\TFS-Projects\\IAS-Training\\RepositoryLayer\\obj\\",
+      "outputPath": "E:\\ISA-TrainingGit\\RepositoryLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Prakash Gadhiya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6594,8 +6594,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj": {
-              "projectPath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj"
+            "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj": {
+              "projectPath": "E:\\ISA-TrainingGit\\DomainLayer\\DomainLayer.csproj"
             }
           }
         }

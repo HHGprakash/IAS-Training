@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/Un9KxTOuPK/Vs+Tpx8I5T1G9Uz3MlzegquaGUFl+W+s9plQMr2/PQXJKS/g2KOHW2LEcQrbvMNNrDzSO4sjNQ==",
+  "dgSpecHash": "ZnFQcksvQgHzPeF1OTq20hhyqP17QPPNbHzwUDEsI4fTEVt0+5t2T7kGPtUAchTZSEMDfNq0a3AK7N4gsMjKQw==",
   "success": true,
-  "projectFilePath": "E:\\TFS-Projects\\IAS-Training\\AuthApi\\AuthApi.csproj",
+  "projectFilePath": "E:\\ISA-TrainingGit\\AuthApi\\AuthApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
