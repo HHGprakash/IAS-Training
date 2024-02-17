@@ -1,0 +1,1687 @@
+<form role="form" class="mb-0" id="form1" name="form" #User="ngForm" novalidate>
+  <div class="main-panel" id="griduser">
+    <h2 class="main-title">LTC Result</h2>
+    <div class="content pb-2 mt-2 pt-2">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tablesortlistfilter">
+              <select name="contractorNameFilter" [(ngModel)]="objFilter.ContractorName" #ContractorName>
+                <option [ngValue]=null>Select Contractor Name</option>
+                <option *ngFor="let Contractor of ContractorMasterList" [ngValue]="Contractor.id">{{Contractor.contractorName}}</option>
+              </select>
+              <select name="programApplyingForFilter" [(ngModel)]="objFilter.ProgramName" #ProgramName>
+                <option [ngValue]=null>Select Programme Name</option>
+                <option *ngFor="let Program of ProgramMasterList" [ngValue]="Program.id">{{Program.program}}</option>
+              </select>
+              <select name="yearFilter" [(ngModel)]="objFilter.Year" #Year>
+                <option [ngValue]=null>Select Year</option>
+                <option *ngFor="let Year of ProgramYear" value={{Year}}>{{Year}}</option>
+              </select>
+              <select name="GenderFilter" [(ngModel)]="objFilter.Gender" #Gender>
+                <option [ngValue]=null>Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <!-- <select name="countryFilter" [(ngModel)]="objFilter.Country" #Country
+              (change)="onChangeCountryGroup(Country.value)">
+                <option [ngValue]=null>Select Country of Birth</option>
+                <option *ngFor="let Country of Countries" value={{Country.id}}>{{Country.countryName}}</option>
+              </select> -->
+              <select name="CountryOfNationality" #CountryOfNationality="ngModel" [(ngModel)]="objFilter.CountryOfNationality"  (change)="onChangeCountryGroup(CountryOfNationality.value)">  
+                <option [ngValue]="null">Select Country of Nationality</option>
+                <option *ngFor="let Nationality of CountryOfNationalityList" value={{Nationality.countryName}}>{{Nationality.countryName}}</option>
+              </select>
+              <select name="RegionFilter" [(ngModel)]="objFilter.Region" #Region>
+                <option [ngValue]=null>Select Region</option>
+                <option *ngFor="let region of CountryGroupList" value={{region.groupName}}>{{region.groupName}}</option>
+              </select>
+              <select [(ngModel)]="objFilter.Classification" #Classification name="ClassificationFilter">
+                <option [ngValue]=null>Select Classification</option>
+                <option *ngFor="let class of ClassificationList" value={{class}}>{{class}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="tablesortlistfilter">
+              <button (click)="getFilteredData()">Search</button>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card card-plain mt-2 mb-2">
+              <div class="card-header headerbgprimary">
+                <div class="row align-items-center">
+                  <div class="col-sm-6"><h4 class="card-title mt-0"> LTC Result</h4></div>
+                  <div class="col-sm-5 ms-auto text-right">
+                    <button class="btn btn-info mr-3" (click)="exportToExcel()">
+                      Export to Excel
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-condensed table-border customTable" #epltable>
+                    <thead class="sticky-top">
+                      <tr>
+                        <th class="fstfxstablevwinn">Ref. No.</th>
+                        <th class="secfxstablevwinn">Candidate</th>
+                        <th>Age</th>
+                        <th>Gen</th>
+                        <th>Country of Nationality</th>
+                        <th>Region</th>
+                        <th>Country Class.</th>
+                        <th>Education</th>
+                        <th>Email</th>
+                        <th>Comment</th>
+                        <th hidden>Submission Date</th>
+                        <th *ngFor="let LtcUser of LtcUserList;let j = index">
+                          {{LtcUser.firstName}}
+                        </th>
+                        <th>Total</th>
+                        <th>Rank</th>
+                        <th style="text-align:right" *ngIf="isShowAction">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let Contractor of SortedContractorTraining;let i = index">
+                        <tr>
+                          <td class="fstfxstablevwinn">{{Contractor.id}}</td>
+                          <td class="secfxstablevwinn">{{Contractor.firstName}} {{Contractor.middleInitial}} {{Contractor.familyName}} </td>
+                          <td>{{Contractor.age}}</td>
+                          <td>{{Contractor.sex}}</td>
+                          <td>{{Contractor.nationality}}</td>
+                          <td>{{Contractor.groupName}}</td>
+                          <td>{{Contractor.countryClass}}</td>
+                          <td>{{Contractor.qualification}}</td>
+                          <td>{{Contractor.email}}</td>
+                          <td [innerHTML]="Contractor.comments"></td>
+                          <td hidden>{{Contractor.submissionDate | date: 'YYYY-MM-dd' }}</td>
+                          <td *ngFor="let LtcRank of Contractor.LtcRank;let j = index">
+                            {{LtcRank.Rank}}
+                          </td>
+                          <td>{{Contractor.TotalRank}}</td>
+                          <td>{{Contractor.Rank}}</td>
+                          <td style=" text-align: right" *ngIf="isShowAction">
+                            <button class="btn btn-outline-info btn-circle fa fa-eye mr-2" style="color: navy;" (click)="openModalWithClass(template,Contractor)"></button>
+                            <!--<button *ngIf="IsUpdate" id="edit" (click)="btnEdit(Contractor,Editmodal)" class="btn fa fa-edit" style="font-size:20px;color:blue"></button>
+    <button class="btn ml-1" style="font-size: 20px; color: #5f4496;" (click)="OpenApplicantRanking(Contractor.id)"><i class="fa fa-trophy" aria-hidden="true"></i></button>-->
+                          </td>
+                        </tr>
+                      </ng-container>
+
+                    </tbody>
+                    <!--<thead>
+                    <tr>
+                      <th style="font-weight: bold;">Contractor Name</th>
+                      <th style="font-weight: bold;">First Name</th>
+                      <th style="font-weight: bold;">Middle Initial</th>
+                      <th style="font-weight: bold;">Country </th>
+                      <th style="font-weight: bold;">CountryClass </th>
+                      <th style="font-weight: bold;">Name of Institution</th>
+                      <th style="font-weight: bold;">Qualification</th>
+                      <th style="font-weight: bold;">Status</th>
+                      <th *ngIf="IsRanking" style="font-weight: bold;">Total Rank</th>
+                      <th style="font-weight: bold;">View</th>
+                      <th *ngIf="IsUpdate" style="font-weight: bold;">Action</th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let Contractor of ContractorList">
+                    <td>{{Contractor.contractorName}}</td>
+                    <td>{{Contractor.firstName}}</td>
+                    <td>{{Contractor.middleInitial}}</td>
+                    <td>{{Contractor.contractorName}}</td>
+                    <td>{{Contractor.countryClass}}</td>
+                    <td>{{Contractor.nameofInstitution}}</td>
+                    <td>{{Contractor.qualification}}</td>
+                    <td>
+                      <span class="status gray">  {{Contractor.status==0 ? 'Pending':''}}   </span>
+                      <span class="status green"> {{Contractor.status==1 ? 'Approved':''}}  </span>
+                      <span class="status red">   {{Contractor.status==2 ? 'Rejected':''}}  </span>
+                    </td>
+                    <td *ngIf="IsRanking"></td>
+                    <td>
+                      <button class="btn btn-outline-info btn-circle fa fa-eye" style="color: navy;" (click)="openModalWithClass(template,Contractor)"></button>
+                    </td>
+                    <td *ngIf="IsUpdate">
+                      <button id="edit" (click)="btnEdit(Contractor,Editmodal)" class="btn fa fa-edit" style="font-size:20px;color:blue"></button>
+                    </td>
+                  </tr>-->
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Application</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="tab">
+      <!--<button *ngIf="IsDisplay" class="tablinks active" (click)="openCity($event, 'Application')">Detail</button>
+      <button *ngIf="IsDisplay" class="tablinks" (click)="openCity($event, 'PersonalInfo')">Personal Information</button>-->
+    </div>
+
+    <!--<div *ngIf="IsDisplay" id="Application" class="tabcontent" style="display:block">
+      <div class="modal-body">
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Personal Information</h5>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Name : <br /><b>{{objContractor.title }} {{objContractor.firstName }}</b></div>
+            <div class="col-md-4">Age : <br /><b>{{age}}</b></div>
+            <div class="col-md-4">Gender :<br /><b>{{objContractor.sex }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Country : <br /><b>{{objContractor.countryName }} </b> </div>--><!-- ----- -->
+            <!--<div class="col-md-4">Group : <br /><b>{{objContractor.groupName}}</b></div>-->  <!-- ----- -->
+            <!--<div class="col-md-4">Country Classification :<br /><b> {{objContractor.countryClass}}</b></div>--><!-- ----- -->
+          <!--</div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Degree : <br /><b>{{objContractor.qualification}}</b></div>
+            <div class="col-md-4">Field of Study :<br /> <b>{{objContractor.fieldofStudy }}<br /><i class="fa fa-dot-circle-o" aria-hidden="true" *ngIf="objContractor.fieldofStudySubCategory"></i> {{objContractor.fieldofStudySubCategory ? '> '+objContractor.fieldofStudySubCategory :""}}</b></div>-->
+            <!-- <div class="col-md-4">Employer : <br /><b>{{objContractor.nameofEmployer1}}</b></div> -->
+          <!--</div>
+          <div class="row col-sm-12">-->
+            <!-- <div class="col-md-4">Title : <br /><b>{{objContractor.titleofPosition1}}</b></div> -->
+          <!--</div>
+          <div class="p-2 detailstable">
+            
+            <div class="blockbgtheme mb-0">
+              
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th><b class="font-weight-bold">Name of Employer</b></th>
+                    <th><b class="font-weight-bold">Title of Position</b></th>
+                  </tr>
+                </thead>
+                <tr *ngFor="let empRecord of objContractor.employment; let i = index">
+                  <td>{{empRecord.employerName }}</td>
+                  <td>{{empRecord.position }}</td>
+                </tr>
+              </table>
+            </div><br />
+
+            <div class="blockbgtheme mb-0">
+              <div class="row ">
+                <div class="col-md-2">Language (2) : <br /><b>2</b></div>
+                <div class="col-md-2">Education (3) : <br /><b>2</b></div>
+                <div class="col-md-2">Experience (2) : <br /><b>2</b></div>
+                <div class="col-md-2">Benefits (3) : <br /><b>2</b></div>
+                <div class="col-md-2">Total (10) : <br /><b>10</b></div>
+              </div>
+            </div>
+          </div>
+
+        </div><br />
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="btnApprove()">Approve</button>
+        <button class="btn btn-danger" (click)="btnReject()">Reject</button>
+      </div>
+    </div>-->
+
+    <div *ngIf="IsDisplay" id="PersonalInfo" class="tabcontent" style="display:block">
+      <div class="modal-body">
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0"> <h5>Personal Information</h5></div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Contractor Name : <br /><b>{{objContractor.contractorName }}</b></div>
+            <div class="col-md-4">Programme : <br /><b>{{objContractor.programApplying}}</b></div>
+            <div class="col-md-4">Year : <br /><b>{{objContractor.year }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">First Name : <br /><b>{{objContractor.title }} {{objContractor.firstName }}</b> </div>
+            <div class="col-md-4">Middle Initial(s) : <br /><b>{{objContractor.middleInitial }}</b></div>
+            <div class="col-md-4">Family Name : <br /><b>{{objContractor.familyName }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Date of Birth : <br /><b>{{objContractor.dateofBirth | date: 'MM/dd/yyyy'}}</b></div>
+            <div class="col-md-4">Place of Birth (City) : <br /><b>{{objContractor.placeofBirth }}</b></div>
+            <div class="col-md-4">Country of Birth : <br /><b>{{objContractor.countryName }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Country of Nationality : <br /><b>{{objContractor.nationality }}</b></div>
+            <div class="col-md-4">Sex : <br /><b>{{objContractor.sex }}</b></div>
+            <div class="col-md-4">Age : <br /><b>{{age}}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Marital Status : <br /><b>{{objContractor.maritalStatus }}</b></div>
+            <div class="col-md-4">Residence Address : <br /><b>{{objContractor.residenceAddress}}</b></div>
+            <div class="col-md-4">Business Address : <br /><b>{{objContractor.businessAddress}}</b></div>
+            <div class="col-sm-4" style="display:none;">Residence No.  : <br /><b>{{objContractor.residenceNo}}</b></div>
+            <div class="col-sm-4" style="display:none;">Office No.  : <br /><b>{{objContractor.officeNo}}</b></div>
+            <div class="col-sm-4">Cell No.  : <br /><b>{{objContractor.cellNo}}</b></div>
+            <div class="col-sm-4" style="display:none;">Fax No.  : <br /><b>{{objContractor.faxNo}}</b></div>
+            <div class="col-sm-4">Email  : <br /><b>{{objContractor.email}}</b></div>
+
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Passport Information</h5>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">Passport No. : <br /><b>{{objContractor.passportNo }}</b></div>
+                <div class="col-md-6">
+                  Date of Issue : <br /><b>{{objContractor.dateofIssue | date: 'MM/dd/yyyy'}}</b>
+                </div>
+                <div class="col-md-6">
+                  Place of issue : <br /><b>{{objContractor.placeofIssue }}</b>
+                </div>
+                <div class="col-md-6">
+                  Date of Expiry : <br /><b>{{objContractor.dateofExpiry | date: 'MM/dd/yyyy'}}</b>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              Passport Photo:
+              <div style="max-width:200px;" *ngIf="objContractor.PassportPhotopath != null">
+                <img class="img-fluid" src="{{objContractor.PassportPhotopath}}" (click)="openPassportPhoto()" />
+              </div>
+            </div>
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Proficiency in English</h5>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Listening : <br /><b>{{objContractor.listening }}</b></div>
+            <div class="col-md-4">Speaking : <br /><b>{{objContractor.speaking }}</b></div>
+            <div class="col-md-4">Writing : <br /><b>{{objContractor.writing}}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Reading : <br /><b>{{objContractor.reading }}</b></div>
+            <div class="col-md-4">Other Language : <br /><b>{{objContractor.otherLanguage }}</b></div>
+            <div class="col-md-4">Mother Language : <br /><b>{{objContractor.motherLanguage }}</b></div>
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Education (University or equivalent)</h5>
+          </div>
+          <ng-container *ngFor="let education of objContractor.education">
+            <div style="border-bottom: 1px solid #dee2e6"></div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Name of Institution : <br /><b>{{education.nameofInstitution }}</b></div>
+              <!--<div class="col-md-4">Program Applying For : <br /><b>{{education.programApplying }}</b></div>-->
+              <div class="col-md-4">
+                Education From Year And Month : <br /><b>
+
+                  {{education.educationFromYear}}
+                  {{education.educationFromMonth}}
+                </b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Education To Year And Month : <br /><b>
+                  {{education.educationToYear }}
+                  {{education.educationToMonth}}
+                </b>
+              </div>
+              <div class="col-md-4">Address : <br /><b>{{education.address }}</b></div>
+              <div class="col-md-4">Field of Study : <br /><b>{{education.fieldofStudy }}<br /><i class="fa fa-dot-circle-o" aria-hidden="true" *ngIf="education.fieldofStudySubCategory"></i> {{education.fieldofStudySubCategory ? education.fieldofStudySubCategory :""}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Qualification : <br /><b>{{education.qualification}}</b></div>
+            </div>
+            <br />
+          </ng-container>
+        </div><br /><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Additional skills & Experience</h5>
+          </div>
+          <div *ngFor="let additionalSkill of objContractor.additionalSkills">
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Previously selected for an ISA Contractor Training Programme : <br /><b> {{additionalSkill.haveyoubeenpreviouslyselected}}</b></div>
+              <div class="col-sm-12" *ngIf="additionalSkill.haveyoubeenpreviouslyselected == 'Yes'">In Which programme and In Which year : <br /><b>{{additionalSkill.whichprogrammeName}} - {{additionalSkill.whichyear}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12" *ngIf="additionalSkill.haveyoubeenpreviouslyselected == 'Yes' && additionalSkill.whichprogramme != null">Participate in the training : <br /><b> {{additionalSkill.didyouparticipate}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Fields/Topics of Scientific Interest : <br /><b>{{additionalSkill.fieldsofScientificInterest}}</b></div>
+              <div class="col-sm-12">Research undertaken : <br /><b>{{additionalSkill.researchundertakenifany}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Participation in international symposia : <br /><b>{{additionalSkill.participationininternationalsymposia}}</b></div>
+              <div class="col-sm-12">At-sea Working Experience : <br /><b>{{additionalSkill.atseaWorkingExperience}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Indicate how this Training Programme : <br /><b>{{additionalSkill.trainingProgrammewillfurtheryourcareer}}</b></div>
+            </div>
+          </div>
+        </div><br />
+
+        <div class="border edudetailsblocksmodal">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Employment Record</h5>
+          </div>
+          <div class="blockborder" *ngFor="let empRecord of objContractor.employment; let i = index">
+
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Present Post From Year And Month : <br /><b>
+                  {{empRecord.fromYear }}
+                  {{empRecord.fromMonth }}
+                </b>
+              </div>
+              <div class="col-md-4">
+                Present Post To Year And Month : <br /><b>
+                  {{empRecord.toYear }}
+                  {{empRecord.toMonth }}
+                </b>
+              </div>
+              <div class="col-md-4">Name of Employer : <br /><b>{{empRecord.employerName }}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Title of Position : <br /><b>{{empRecord.position }}</b></div>
+              <div class="col-md-4">Address of Employer : <br /><b>{{empRecord.employerAddress }}</b></div>
+              <div class="col-md-4">Responsibilities : <br /><b>{{empRecord.responsibilities }}</b></div>
+            </div><br /><br />
+          </div>
+        </div><br />
+        <div class="border edudetailsblocksmodal cusmarginrank">
+          <div class="blockbgtheme pageheaderblock">
+            <h5>Supporting Documents</h5>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="attachedfilesmain">
+                <ng-container *ngFor="let file of objContractor.supportingDocList;let f =index;">
+                  <div class="docscuspads">
+                    <div class="dociconattach" (click)="DownloadFile(file.fileName,objContractor.id+'/'+file.docId+'/'+file.fileName,file.fileType)">
+                      <img src="../assets/img/docicons/{{file.fileType=='pdf' ?  'pdf.png'  : (file.fileType=='jpg' || file.fileType=='jepg') ? 'jpg.png' : file.fileType=='png' ? 'png.png' : (file.fileType=='docx' || file.fileType=='doc') ? 'doc.png' : '' }}" />
+                    </div>
+                    <div class="docattachcontent">
+                      <h6 class="filename mb-0">{{file.fileName}}</h6>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="IsRanking" class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Add Ranking</h5>
+          </div>
+          <div class="row col-sm-8 mt-2">
+            <div class="col-sm-3"> Add Ranking :</div>
+            <div class="col-sm-5">
+              <select class="form-control" name="rank" #rank="ngModel" [(ngModel)]="SaveRank.rank" required>
+                <option [ngValue]="null" disabled selected hidden>-----Select-----</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+            <div *ngIf="rank.invalid && IsValid" class="text text-danger">
+              <div *ngIf="rank.errors?.required && IsValid">
+                Rank Is required.
+              </div>
+            </div>
+          </div>
+          <div class="modal-body" style="text-align: center;">
+
+            <button class="btn btn-success" (click)="btnSaveRank(User)">Save</button>
+            <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--  -->
+    <div *ngIf="IsShow">
+      <div class="modal-body">
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0"> <h5>Personal Information</h5></div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Contractor Name : <br /><b>{{objContractor.contractorName }}</b></div>
+            <div class="col-md-4">Programme : <br /><b>{{objContractor.programApplying }}</b></div>
+            <div class="col-md-4">Year : <br /><b>{{objContractor.year }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">First Name : <br /><b>{{objContractor.title }} {{objContractor.firstName }}</b> </div>
+            <div class="col-md-4">Middle Initial(s) : <br /><b>{{objContractor.middleInitial }}</b></div>
+            <div class="col-md-4">Family Name : <br /><b>{{objContractor.familyName }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Date of Birth :<br /> <b>{{objContractor.dateofBirth | date: 'MM/dd/yyyy'}}</b></div>
+            <div class="col-md-4">Place of Birth (City) :<br /> <b>{{objContractor.placeofBirth }}</b></div>
+            <div class="col-md-4">Country of Birth :<br /> <b>{{objContractor.countryName }}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Country of Nationality : <br /><b>{{objContractor.nationality }}</b></div>
+            <div class="col-md-4">Sex : <br /><b>{{objContractor.sex }}</b></div>
+            <div class="col-md-4">Age : <br /><b>{{age}}</b></div>
+
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Marital Status : <br /><b>{{objContractor.maritalStatus }}</b></div>
+            <div class="col-md-4">Residence Address : <br /><b>{{objContractor.residenceAddress}}</b></div>
+            <div class="col-md-4">Business Address : <br /><b>{{objContractor.businessAddress}}</b></div>
+            <div class="col-sm-4" style="display:none;">Residence No.  : <br /><b>{{objContractor.residenceNo}}</b></div>
+            <div class="col-sm-4" style="display:none;">Office No.  : <br /><b>{{objContractor.officeNo}}</b></div>
+            <div class="col-sm-4">Cell No.  : <br /><b>{{objContractor.cellNo}}</b></div>
+            <div class="col-sm-4" style="display:none;">Fax No.  : <br /><b>{{objContractor.faxNo}}</b></div>
+            <div class="col-sm-4">Email  : <br /><b>{{objContractor.email}}</b></div>
+
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Passport Information</h5>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">Passport No. : <br /><b>{{objContractor.passportNo }}</b></div>
+                <div class="col-md-6">
+                  Date of Issue :<br /> <b>
+                    {{objContractor.dateofIssue | date: 'MM/dd/yyyy'}}
+                  </b>
+                </div>
+                <div class="col-md-6">Place of Issue : <br /><b>{{objContractor.placeofIssue }}</b></div>
+                <div class="col-md-6">
+                  Date of Expiry :<br /> <b>
+                    {{objContractor.dateofExpiry | date: 'MM/dd/yyyy'}}
+                  </b>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              Passport Photo :
+              <div style="max-width:200px;" *ngIf="objContractor.PassportPhotopath != null">
+                <img class="img-fluid" src="{{objContractor.PassportPhotopath}}" (click)="openPassportPhoto()" />
+              </div>
+            </div>
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Proficiency in English</h5>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Listening : <br /><b>{{objContractor.listening }}</b></div>
+            <div class="col-md-4">Speaking : <br /><b>{{objContractor.speaking }}</b></div>
+            <div class="col-md-4">Writing : <br /><b>{{objContractor.writing}}</b></div>
+          </div>
+          <div class="row col-sm-12">
+            <div class="col-md-4">Reading : <br /><b>{{objContractor.reading }}</b></div>
+            <div class="col-md-4">Other Language : <br /><b>{{objContractor.otherLanguage }}</b></div>
+            <div class="col-md-4">Mother Language : <br /><b>{{objContractor.motherLanguage }}</b></div>
+          </div>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Education (University or equivalent)</h5>
+          </div>
+          <ng-container *ngFor="let education of objContractor.education">
+            <div style="border-bottom: 1px solid #dee2e6"></div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Name of Institution : <br /><b>{{education.nameofInstitution }}</b></div>
+              <!--<div class="col-md-4">Program Applying For : <br /><b>{{education.programApplying }}</b></div>-->
+              <div class="col-md-4">
+                Education From Year And Month : <br /><b>
+
+                  {{education.educationFromYear}}
+                  {{education.educationFromMonth}}
+                </b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Education To Year And Month : <br /><b>
+                  {{education.educationToYear }}
+                  {{education.educationToMonth}}
+                </b>
+              </div>
+              <div class="col-md-4">Address : <br /><b>{{education.address }}</b></div>
+              <div class="col-md-4">Field of Study : <br /><b>{{education.fieldofStudy }}<br /><i class="fa fa-dot-circle-o" aria-hidden="true" *ngIf="education.fieldofStudySubCategory"></i> {{education.fieldofStudySubCategory ? education.fieldofStudySubCategory :""}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Qualification : <br /><b>{{education.qualification}}</b></div>
+            </div>
+            <br />
+          </ng-container>
+        </div><br />
+
+        <div class="border">
+          <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;">
+            <h5>Additional skills & Experience</h5>
+          </div>
+          <div *ngFor="let additionalSkill of objContractor.additionalSkills">
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Previously selected for an ISA Contractor Training Programme : <br /><b> {{additionalSkill.haveyoubeenpreviouslyselected}}</b></div>
+              <div class="col-sm-12" *ngIf="additionalSkill.haveyoubeenpreviouslyselected == 'Yes'">In Which programme and In Which year : <br /><b>{{additionalSkill.whichprogrammeName}} - {{additionalSkill.whichyear}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12" *ngIf="additionalSkill.haveyoubeenpreviouslyselected == 'Yes' && additionalSkill.whichprogramme != null">Participate in the training : <br /><b> {{additionalSkill.didyouparticipate}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Fields/Topics of Scientific Interest : <br /><b>{{additionalSkill.fieldsofScientificInterest}}</b></div>
+              <div class="col-sm-12">Research undertaken : <br /><b>{{additionalSkill.researchundertakenifany}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Participation in international symposia : <br /><b>{{additionalSkill.participationininternationalsymposia}}</b></div>
+              <div class="col-sm-12">At-sea Working Experience : <br /><b>{{additionalSkill.atseaWorkingExperience}}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-12">Indicate how this Training Programme : <br /><b>{{additionalSkill.trainingProgrammewillfurtheryourcareer}}</b></div>
+            </div>
+          </div>
+        </div><br />
+
+        <div class="border edudetailsblocksmodal">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Employment Record</h5>
+          </div>
+          <div class="blockborder" *ngFor="let empRecord of objContractor.employment; let i = index">
+
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Present Post From Year And Month : <br /><b>
+                  {{empRecord.fromYear }}
+                  {{empRecord.fromMonth }}
+                </b>
+              </div>
+              <div class="col-md-4">
+                Present Post To Year And Month : <br /><b>
+                  {{empRecord.toYear }}
+                  {{empRecord.toMonth }}
+                </b>
+              </div>
+              <div class="col-md-4">Name of Employer : <br /><b>{{empRecord.employerName }}</b></div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">Title of Position : <br /><b>{{empRecord.position }}</b></div>
+              <div class="col-md-4">Address of Employer : <br /><b>{{empRecord.employerAddress }}</b></div>
+              <div class="col-md-4">Responsibilities : <br /><b>{{empRecord.responsibilities }}</b></div>
+            </div><br /><br />
+          </div>
+
+        </div><br />
+        <div class="border edudetailsblocksmodal cusmarginrank">
+          <div class="blockbgtheme pageheaderblock">
+            <h5>Supporting Documents</h5>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="attachedfilesmain">
+                <ng-container *ngFor="let file of objContractor.supportingDocList;let f =index;">
+                  <div class="docscuspads">
+                    <div class="dociconattach" (click)="DownloadFile(file.fileName,objContractor.id+'/'+file.docId+'/'+file.fileName,file.fileType)">
+                      <img src="../assets/img/docicons/{{file.fileType=='pdf' ?  'pdf.png'  : (file.fileType=='jpg' || file.fileType=='jepg') ? 'jpg.png' : file.fileType=='png' ? 'png.png' : (file.fileType=='docx' || file.fileType=='doc') ? 'doc.png' : '' }}" />
+                    </div>
+                    <div class="docattachcontent">
+                      <h6 class="filename mb-0">{{file.fileName}}</h6>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="IsRanking" class="border">
+          <div class="blockbgtheme pageheaderblock mb-0">
+            <h5>Add Ranking</h5>
+          </div>
+          <div class="row col-sm-8 mt-2">
+            <div class="col-sm-3"> Add Ranking :</div>
+            <div class="col-sm-5">
+              <select class="form-control" name="rank" #rank="ngModel" [(ngModel)]="SaveRank.rank" required>
+                <option [ngValue]="null" disabled selected hidden>-----Select-----</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+            <div *ngIf="rank.invalid && IsValid" class="text text-danger">
+              <div *ngIf="rank.errors?.required && IsValid">
+                Rank Is required.
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-success mr-2" (click)="btnSaveRank(User)">Save</button>
+            <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--  -->
+  </ng-template>
+
+  <!-- Edit-Modal -->
+  <ng-template #Editmodal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left" style="color:white;">Application</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="blockbgtheme">
+        <div class="pageheaderblock">
+          <h3>Personal Information</h3>
+        </div>
+        <div class="personalinformation">
+          <div class="row">
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Contractor Name <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="contractorName" #contractorName="ngModel" [(ngModel)]="objContractor.contractorId" required>
+                <option [ngValue]="undefined">Select</option>
+                <option *ngFor="let Contractor of ContractorMasterList" [ngValue]="Contractor.id">{{Contractor.contractorName}}</option>
+              </select>
+              <div *ngIf="contractorName.invalid && IsValid" class="text text-danger">
+                <div *ngIf="contractorName.errors?.required && IsValid">
+                  ContractorName Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Programme <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="programApplyingFor" #programApplyingFor="ngModel" [(ngModel)]="objContractor.programApplyingId" required>
+                <option [ngValue]="undefined">Select</option>
+                <option *ngFor="let Program of ProgramMasterList" [ngValue]="Program.id">{{Program.program}}</option>
+              </select>
+              <div *ngIf="programApplyingFor.invalid && IsValid" class="text text-danger">
+                <div *ngIf="programApplyingFor.errors?.required && IsValid">
+                  ProgramApplyingFor Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Year <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="year" #year="ngModel" [(ngModel)]="objContractor.year" required>
+                <option [ngValue]="null" disabled selected hidden>Select Year</option>
+                <option *ngFor="let Year of ProgramYear" value={{Year}}>{{Year}}</option>
+              </select>
+              <div *ngIf="year.invalid && IsValid" class="text text-danger">
+                <div *ngIf="year.errors?.required && IsValid">
+                  Year Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 mb-3">
+              <div class="formlabel">
+                <label>Title</label>
+              </div>
+              <select name="title" #title="ngModel" [(ngModel)]="objContractor.title" required>
+                <option [ngValue]="undefined">Select</option>
+                <option>Miss</option>
+                <option>Ms</option>
+                <option>Mr</option>
+                <option>Mrs</option>
+                <option>Dr</option>
+              </select>
+              <div *ngIf="title.invalid && IsValid" class="text text-danger">
+                <div *ngIf="title.errors?.required && IsValid">
+                  Title Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>First Name <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="firstName" #firstName="ngModel" [(ngModel)]="objContractor.firstName" autocomplete="off" required>
+              <div *ngIf="firstName.invalid && IsValid" class="text text-danger">
+                <div *ngIf="firstName.errors?.required && IsValid">
+                  FirstName Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <div class="formlabel">
+                <label>Middle Initial(s)</label>
+              </div>
+              <input type="text" name="middleInitial" #middleInitial="ngModel" [(ngModel)]="objContractor.middleInitial" autocomplete="off"
+                     required>
+              <div *ngIf="middleInitial.invalid && IsValid" class="text text-danger">
+                <div *ngIf="middleInitial.errors?.required && IsValid">
+                  MiddleInitial Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <div class="formlabel">
+                <label>Family Name <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="familyName" #familyName="ngModel" [(ngModel)]="objContractor.familyName" autocomplete="off"
+                     required>
+              <div *ngIf="familyName.invalid && IsValid" class="text text-danger">
+                <div *ngIf="familyName.errors?.required && IsValid">
+                  FamilyName Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Date of Birth <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <div>
+                <div class="qkdatetobecomp" style="width:100%">
+                  <input type="text" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="{year: 3000, month: 12, day: 31}"
+                         class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                         id="dateofBirth"
+                         name="dateofBirth"
+                         [(ngModel)]="objContractor.dateofBirth"
+                         #dateofBirth="ngModel"
+                         ngControl="dateofBirth" onkeydown="return false" autocomplete="off" (click)="d1.toggle()" />
+                  <button class="btn btn-outline-secondary calendar dateButton" (click)="d1.toggle()" type="button">
+                    <i _ngcontent-aks-c111="" class="material-icons">
+                      today
+                    </i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Place of Birth (City) <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="placeofBirth" #placeofBirth="ngModel" [(ngModel)]="objContractor.placeofBirth" autocomplete="off"
+                     required>
+              <div *ngIf="placeofBirth.invalid && IsValid" class="text text-danger">
+                <div *ngIf="placeofBirth.errors?.required && IsValid">
+                  Place of Birth Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Country of Birth <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="country" #country="ngModel" [(ngModel)]="objContractor.country" required>
+                <option [ngValue]="undefined">Select Country of Birth</option>
+                <option *ngFor="let Country of Countries" value={{Country.id}}>{{Country.countryName}}</option>
+              </select>
+              <div *ngIf="country.invalid && IsValid" class="text text-danger">
+                <div *ngIf="country.errors?.required && IsValid">
+                  Country of Birth Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Country of Nationality <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="nationality" #nationality="ngModel" [(ngModel)]="objContractor.nationality" autocomplete="off"
+                     required>
+              <div *ngIf="nationality.invalid && IsValid" class="text text-danger">
+                <div *ngIf="nationality.errors?.required && IsValid">
+                  Country of Nationality Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Sex <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="sex" #sex="ngModel" [(ngModel)]="objContractor.sex" required>
+                <option [ngValue]="undefined">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <div *ngIf="sex.invalid && IsValid" class="text text-danger">
+                <div *ngIf="sex.errors?.required && IsValid">
+                  Sex Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Marital Status <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="maritalStatus" #maritalStatus="ngModel" [(ngModel)]="objContractor.maritalStatus" required>
+                <option [ngValue]="undefined">Select</option>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Divorced</option>
+                <option>Widowed</option>
+              </select>
+              <div *ngIf="maritalStatus.invalid && IsValid" class="text text-danger">
+                <div *ngIf="maritalStatus.errors?.required && IsValid">
+                  MaritalStatus Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <div class="formlabel">
+                <label>Residence Address <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <textarea name="residenceAddress" #residenceAddress="ngModel" [(ngModel)]="objContractor.residenceAddress" autocomplete="off"
+                        required></textarea>
+              <div *ngIf="residenceAddress.invalid && IsValid" class="text text-danger">
+                <div *ngIf="residenceAddress.errors?.required && IsValid">
+                  Residence-Address Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <div class="formlabel">
+                <label>Business Address <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <textarea name="businessAddress" #businessAddress="ngModel" [(ngModel)]="objContractor.businessAddress" autocomplete="off"
+                        required></textarea>
+              <div *ngIf="businessAddress.invalid && IsValid" class="text text-danger">
+                <div *ngIf="businessAddress.errors?.required && IsValid">
+                  Business-Address Is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3" style="display:none;">
+              <div class="formlabel">
+                <label>Residence No. <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="Residenceno" #Residenceno="ngModel" placeholder="Residence No" [(ngModel)]="objContractor.residenceNo" autocomplete="off" required>
+              <div *ngIf="Residenceno.invalid && IsValid" class="text text-danger">
+                <div *ngIf="Residenceno.errors?.required && IsValid">
+                  Residenceno Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3" style="display:none;">
+              <div class="formlabel">
+                <label>Office No. <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="OfficeNo" #OfficeNo="ngModel" placeholder="Office No" [(ngModel)]="objContractor.officeNo" autocomplete="off" required>
+              <div *ngIf="OfficeNo.invalid && IsValid" class="text text-danger">
+                <div *ngIf="OfficeNo.errors?.required && IsValid">
+                  OfficeNo Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Cell No. <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="CellNo" #CellNo="ngModel" placeholder="Cell No" [(ngModel)]="objContractor.cellNo" autocomplete="off" required>
+              <div *ngIf="CellNo.invalid && IsValid" class="text text-danger">
+                <div *ngIf="CellNo.errors?.required && IsValid">
+                  CellNo Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3" style="display:none;">
+              <div class="formlabel">
+                <label>Fax No. <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="FaxNo" #FaxNo="ngModel" placeholder="Fax No" [(ngModel)]="objContractor.faxNo" autocomplete="off" required>
+              <div *ngIf="FaxNo.invalid && IsValid" class="text text-danger">
+                <div *ngIf="FaxNo.errors?.required && IsValid">
+                  FaxNo Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Email <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="Email" #Email="ngModel" placeholder="Enter your email" [(ngModel)]="objContractor.email" autocomplete="off" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+              <div *ngIf="Email.invalid && IsValid" class="text text-danger">
+                <div *ngIf="Email.errors?.required && IsValid">
+                  Email Is required.
+                </div>
+              </div>
+              <div *ngIf="Email.errors?.pattern" class="text text-danger">
+                Email is not Valid.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+
+      <div class="blockbgtheme">
+        <div class="pageheaderblock">
+          <h3>Passport Information</h3>
+        </div>
+        <div class="passportinfo">
+          <div class="row">
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Passport No. <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="passportNo" #passportNo="ngModel" [(ngModel)]="objContractor.passportNo" autocomplete="off"
+                     required>
+              <div *ngIf="passportNo.invalid && IsValid" class="text text-danger">
+                <div *ngIf="passportNo.errors?.required && IsValid">
+                  PassportNo Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Date of Issue <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <div>
+                <div class="qkdatetobecomp" style="width:100%">
+                  <input type="text" ngbDatepicker #d2="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="{year: 3000, month: 12, day: 31}"
+                         class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                         id="dateofIssue"
+                         name="dateofIssue"
+                         [(ngModel)]="objContractor.dateofIssue"
+                         #dateofIssue="ngModel"
+                         ngControl="dateofIssue" onkeydown="return false" autocomplete="off" (click)="d2.toggle()" />
+                  <button class="btn btn-outline-secondary calendar dateButton" (click)="d2.toggle()" type="button">
+                    <i _ngcontent-aks-c111="" class="material-icons">
+                      today
+                    </i>
+                  </button>
+                  <div *ngIf="dateofIssue.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="dateofIssue.errors?.required && IsValid">
+                      dateofIssue Is required.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Passport Photo<span></span></label>
+              </div>
+              <div class="cusimages pssportupldimg">
+                <input type="file"
+                       accept="image/png, image/jpg, image/jpeg"
+                       (change)="onPassportPhotoUpload($event)">
+                <!--<img src="{{objContractor.PassportPhotopath}}" />
+                <p class="attachfilesize mb-0 ">
+                  <i class="fa fa-times-circle-o  pl-2" aria-hidden="true" (click)="deletePassportPhoto()"></i>
+                </p>-->
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Date of Expiry <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <div>
+                <div class="qkdatetobecomp" style="width:100%">
+                  <input type="text" ngbDatepicker #d3="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="{year: 3000, month: 12, day: 31}"
+                         class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                         id="dateofExpiry"
+                         name="dateofExpiry"
+                         [(ngModel)]="objContractor.dateofExpiry"
+                         #dateofExpiry="ngModel"
+                         ngControl="dateofExpiry" onkeydown="return false" autocomplete="off" (click)="d3.toggle()" />
+                  <button class="btn btn-outline-secondary calendar dateButton" (click)="d3.toggle()" type="button">
+                    <i _ngcontent-aks-c111="" class="material-icons">
+                      today
+                    </i>
+                  </button>
+                  <div *ngIf="dateofExpiry.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="dateofExpiry.errors?.required && IsValid">
+                      DateofExpiry Is required.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Place of Issue <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="placeofIssue" #placeofIssue="ngModel" [(ngModel)]="objContractor.placeofIssue"
+                     required>
+              <div *ngIf="placeofIssue.invalid && IsValid" class="text text-danger">
+                <div *ngIf="placeofIssue.errors?.required && IsValid">
+                  Place of Issue Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="cusimages" *ngIf="objContractor.PassportPhotopath!=null">
+                <p class="attachfilesize mb-0 iconicscus ">
+                  <i class="fa fa-times-circle-o" aria-hidden="true" (click)="deletePassportPhoto()"></i>
+                </p>
+                <div class="cusimages" *ngIf="objContractor.PassportPhotopath != null">
+                  <img [attr.src]="objContractor.PassportPhotopath" (click)="openPassportPhoto()" />
+                </div>
+              </div>
+
+            </div>
+
+            <!-- <div class="col-lg-8 mb-3">
+              <div class="formlabel">
+                <label>Passport Photo <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <div class="passportimgupload">
+                <input type="file">
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div><br />
+
+      <div class="blockbgtheme">
+        <div class="pageheaderblock">
+          <h3>Proficiency in English</h3>
+        </div>
+        <div class="languageknown">
+          <div class="row">
+            <div class="col-lg-2 mb-3">
+              <div class="languageheader">
+                <h3>Listening <span><i class="mdi mdi-hexagram"></i></span></h3>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline1" name="listening" #listening="ngModel"
+                       [(ngModel)]="objContractor.listening" value="Poor" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline1">Poor</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline2" name="listening" #listening="ngModel"
+                       [(ngModel)]="objContractor.listening" value="Fair" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline2">Fair</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline3" name="listening" #listening="ngModel"
+                       [(ngModel)]="objContractor.listening" value="Good" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline3">Good</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline4" name="listening" #listening="ngModel"
+                       [(ngModel)]="objContractor.listening" value="Excellent" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline4">Excellent</label>
+              </div>
+              <div *ngIf="listening.invalid && IsValid" class="text text-danger">
+                <div *ngIf="listening.errors?.required && IsValid">
+                  Listening Is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 mb-3">
+              <div class="languageheader">
+                <h3>Speaking <span><i class="mdi mdi-hexagram"></i></span></h3>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline5" name="speaking" #speaking="ngModel"
+                       [(ngModel)]="objContractor.speaking" value="Poor" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline5">Poor</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline6" name="speaking" #speaking="ngModel"
+                       [(ngModel)]="objContractor.speaking" value="Fair" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline6">Fair</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline7" name="speaking" #speaking="ngModel"
+                       [(ngModel)]="objContractor.speaking" value="Good" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline7">Good</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline8" name="speaking" #speaking="ngModel"
+                       [(ngModel)]="objContractor.speaking" value="Excellent" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline8">Excellent</label>
+              </div>
+              <div *ngIf="speaking.invalid && IsValid" class="text text-danger">
+                <div *ngIf="speaking.errors?.required && IsValid">
+                  Speaking Is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 mb-3">
+              <div class="languageheader">
+                <h3>Writing <span><i class="mdi mdi-hexagram"></i></span></h3>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline9" name="writing" #writing="ngModel"
+                       [(ngModel)]="objContractor.writing" value="Poor" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline9">Poor</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline10" name="writing" #writing="ngModel"
+                       [(ngModel)]="objContractor.writing" value="Fair" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline10">Fair</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline11" name="writing" #writing="ngModel"
+                       [(ngModel)]="objContractor.writing" value="Good" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline11">Good</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline12" name="writing" #writing="ngModel"
+                       [(ngModel)]="objContractor.writing" value="Excellent" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline12">Excellent</label>
+              </div>
+              <div *ngIf="writing.invalid && IsValid" class="text text-danger">
+                <div *ngIf="writing.errors?.required && IsValid">
+                  Writing Is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 mb-3">
+              <div class="languageheader">
+                <h3>Reading <span><i class="mdi mdi-hexagram"></i></span></h3>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline13" name="reading" #reading="ngModel"
+                       [(ngModel)]="objContractor.reading" value="Poor" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline13">Poor</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline14" name="reading" #reading="ngModel"
+                       [(ngModel)]="objContractor.reading" value="Fair" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline14">Fair</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline15" name="reading" #reading="ngModel"
+                       [(ngModel)]="objContractor.reading" value="Good" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline15">Good</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInline16" name="reading" #reading="ngModel"
+                       [(ngModel)]="objContractor.reading" value="Excellent" class="custom-control-input" required>
+                <label class="custom-control-label" for="customRadioInline16">Excellent</label>
+              </div>
+              <div *ngIf="reading.invalid && IsValid" class="text text-danger">
+                <div *ngIf="reading.errors?.required && IsValid">
+                  Reading Is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3">
+              <div class="languageheader">
+                <h3>Other Language (UN official Languages)</h3>
+              </div>
+              <label *ngFor="let Language of OtherLanguagelist; let i = index" class="cr-checkBox langcheckbox">
+
+                <input type="checkbox" name="OtherLanguage{{i}}" id="OtherLanguage{{i}}" value="{{Language.languageName}}" [checked]="Language.isChecked"
+                       (change)="OtherLanguageCheckChange(i)">
+                {{Language.languageName}}
+                <span class="checkmark"></span>&nbsp;&nbsp;
+              </label>
+            </div>
+            <div class="col-lg-12 mb-3">
+              <div class="languageheader">
+                <h3>Mother Language <span><i class="mdi mdi-hexagram"></i></span></h3>
+              </div>
+              <input class="motherlang" type="text" name="motherLanguage" #motherLanguage="ngModel" autocomplete="off"
+                     [(ngModel)]="objContractor.motherLanguage">
+              <div *ngIf="motherLanguage.invalid && IsValid" class="text text-danger">
+                <div *ngIf="motherLanguage.errors?.required && IsValid">
+                  MotherLanguage Is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+
+      <div class="blockbgtheme">
+        <div class="pageheaderblock">
+          <h3>Education (University or equivalent)</h3>
+        </div>
+        <div class="edunote">
+          <p>Give full details in so far as possible </p>
+        </div>
+
+        <div class="edudetails">
+          <div class="row">
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Name of Institution <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <input type="text" name="nameofInstitution" #nameofInstitution="ngModel" autocomplete="off"
+                     [(ngModel)]="objContractor.nameofInstitution" required>
+              <div *ngIf="nameofInstitution.invalid && IsValid" class="text text-danger">
+                <div *ngIf="nameofInstitution.errors?.required && IsValid">
+                  Name of Institution Is required.
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-4 mb-3">
+               <div class="formlabel">
+                 <label>Program Applying For <span><i class="mdi mdi-hexagram"></i></span></label>
+               </div>
+               <select name="programApplying" #programApplying="ngModel" [(ngModel)]="objContractor.programApplying"
+                       required>
+                 <option>Select</option>
+                 <option>At - Sea Training</option>
+               </select>
+               <div *ngIf="programApplying.invalid && IsValid" class="text text-danger">
+                 <div *ngIf="programApplying.errors?.required && IsValid">
+                   ProgramApplying Is required.
+                 </div>
+               </div>
+             </div>-->
+            <div class="col-lg-8 mb-3">
+              <div class="fromtodate">
+                <div class="fromdate">
+                  <div class="formlabel">
+                    <label>From <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <div class="dobselection">
+                    <select name="educationFromYear" #educationFromYear="ngModel"
+                            [(ngModel)]="objContractor.educationFromYear" required>
+                      <option *ngFor="let Year of EducationYear" value={{Year}}>{{Year}}</option>
+                    </select>
+                    <select name="educationFromMonth" #educationFromMonth="ngModel"
+                            [(ngModel)]="objContractor.educationFromMonth" required>
+                      <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                    </select>
+                    <div *ngIf="educationFromYear.invalid || educationFromMonth.invalid && IsValid"
+                         class="text text-danger">
+                      <div *ngIf="educationFromYear.errors?.required || educationFromMonth.errors?.required && IsValid">
+                        Education From Year<br /> And Month Is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="todate">
+                  <div class="formlabel">
+                    <label>To <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <div class="dobselection">
+                    <select name="educationToYear" #educationToYear="ngModel"
+                            [(ngModel)]="objContractor.educationToYear" required>
+                      <option *ngFor="let Year of EducationYear" value={{Year}}>{{Year}}</option>
+                    </select>
+                    <select name="educationToMonth" #educationToMonth="ngModel"
+                            [(ngModel)]="objContractor.educationToMonth" required>
+                      <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                    </select>
+                    <div *ngIf="educationToYear.invalid || educationToMonth.invalid && IsValid"
+                         class="text text-danger">
+                      <div *ngIf="educationToYear.errors?.required || educationToMonth.errors?.required && IsValid">
+                        Education To Year<br /> And Month Is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Address <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <textarea name="address" #address="ngModel" [(ngModel)]="objContractor.address" autocomplete="off" required></textarea>
+              <div *ngIf="address.invalid && IsValid" class="text text-danger">
+                <div *ngIf="address.errors?.required && IsValid">
+                  Address Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Field of Study <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="fieldofStudy" #fieldofStudy="ngModel" [(ngModel)]="objContractor.fieldofStudy" required>
+                <option [ngValue]="undefined">Select</option>
+                <option>Geology </option>
+                <option>Geophysics </option>
+                <option>Mining</option>
+                <option>Mineral Processing</option>
+                <option>Marine Ecology </option>
+                <option>Other…</option>
+              </select>
+              <div *ngIf="fieldofStudy.invalid && IsValid" class="text text-danger">
+                <div *ngIf="fieldofStudy.errors?.required && IsValid">
+                  Field of Study Is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <div class="formlabel">
+                <label>Qualification <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <div class="Qualificationcusinn">
+                <div class="qualifactionadded">
+                  <ng-multiselect-dropdown class="multiselectoptionbg ps-0" [placeholder]="'Select'" [ngModelOptions]="{standalone: true}" style="width:100%;" id="Qualification" name="Qualification"
+                                           [data]="QualificationList"
+                                           [(ngModel)]="objContractor.qualificationList"
+                                           [settings]="dropdownSettings"
+                                           #Qualification="ngModel"
+                                           ngControl="Qualification" required>
+                  </ng-multiselect-dropdown>
+                </div>
+                <div class="submitbtn removequali">
+                  <button (click)="AddQualification()"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+
+              <div *ngIf="Qualification.invalid && IsValid" class="text text-danger">
+                <div *ngIf="Qualification.errors?.required && IsValid">
+                  Qualification Is required.
+                </div>
+              </div>
+              <div *ngFor="let ExtraQual of ExtraQualificationList; let i = index" class="d-flex w-100 mt-2">
+                <div class="qualifactionadded">
+                  <input type="text" name="ExtraQual{{i}}" #ExtraQualification="ngModel" id="ExtraQual{{i}}"
+                         [(ngModel)]="ExtraQual.extraQualification" required>
+                </div>
+                <div class="submitbtn removequali">
+                  <button (click)="DeleteQualification(i)"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><br />
+
+      <div class="blockbgtheme additionaldetails">
+        <div class="pageheaderblock">
+          <h3>Additional skills & Experience</h3>
+        </div>
+        <div class="edudetails">
+          <div class="col-lg-12 mb-3">
+            <div class="formlabel">
+              <label>Fields/Topics of Scientific Interest <span><i class="mdi mdi-hexagram"></i></span></label>
+            </div>
+            <textarea name="FieldsofScientificInterest" #FieldsofScientificInterest="ngModel" placeholder="Fields/Topics of Scientific Interest "
+                      [(ngModel)]="objContractor.fieldsofScientificInterest" autocomplete="off" required></textarea>
+            <div *ngIf="FieldsofScientificInterest.invalid && IsValid" class="text text-danger">
+              <div *ngIf="FieldsofScientificInterest.errors?.required && IsValid">
+                Fields of Scientific Is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mb-3">
+            <div class="formlabel">
+              <label>Research undertaken, if any</label>
+            </div>
+            <textarea name="Researchundertakenifany" id="Researchundertakenifany" #Researchundertakenifany="ngModel" placeholder="Research undertaken, if any" autocomplete="off"
+                      [(ngModel)]="objContractor.researchundertakenifany" (input)="InputResearchundertakenMaxwordLength($event,100)"></textarea>
+            <div class="edunote">
+              <p>(not more than 100 words)</p>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mb-3">
+            <div class="formlabel">
+              <label>
+                Participation in international symposia/workshops, fellowships and other training
+                programmes <span><i class="mdi mdi-hexagram"></i></span>
+              </label>
+            </div>
+            <textarea name="Participationininternationalsymposia" #Participationininternationalsymposia="ngModel" placeholder="Participation in international symposia/workshops, fellowships and other training programmes"
+                      [(ngModel)]="objContractor.participationininternationalsymposia" autocomplete="off" required></textarea>
+            <div *ngIf="Participationininternationalsymposia.invalid && IsValid" class="text text-danger">
+              <div *ngIf="Participationininternationalsymposia.errors?.required && IsValid">
+                Participation ininternational symposia Is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mb-3">
+            <div class="formlabel">
+              <label>At-sea Working Experience <span><i class="mdi mdi-hexagram"></i></span></label>
+            </div>
+            <textarea name="AtseaWorkingExperience" #AtseaWorkingExperience="ngModel" placeholder="At-sea Working Experience (Name of Vessel, Date, Duration, Purpose of Cruise)"
+                      [(ngModel)]="objContractor.atseaWorkingExperience" autocomplete="off" required></textarea>
+            <div *ngIf="AtseaWorkingExperience.invalid && IsValid" class="text text-danger">
+              <div *ngIf="AtseaWorkingExperience.errors?.required && IsValid">
+                At-seaWorking Experience Is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mb-3">
+            <div class="formlabel">
+              <label>
+                Indicate how this Training Programme will further your career <span>
+                  <i class="mdi mdi-hexagram"></i>
+                </span>
+              </label>
+            </div>
+            <textarea name="TrainingProgrammewillfurtheryourcareer" id="TrainingProgrammewillfurtheryourcareer"
+                      #TrainingProgrammewillfurtheryourcareer="ngModel" placeholder="Indicate how this Training Programme will further your career" autocomplete="off"
+                      [(ngModel)]="objContractor.trainingProgrammewillfurtheryourcareer" required (input)="InputMaxwordLength($event,250)"></textarea>
+            <div *ngIf="TrainingProgrammewillfurtheryourcareer.invalid && IsValid" class="text text-danger">
+              <div *ngIf="TrainingProgrammewillfurtheryourcareer.errors?.required && IsValid">
+                Indicate Is required.
+              </div>
+            </div>
+            <div class="edunote">
+              <p>(not more than 250 words) </p>
+            </div>
+          </div>
+        </div>
+      </div><br />
+
+      <div class="blockbgtheme">
+        <div class="pageheaderblock">
+          <h3>Employment Record</h3>
+        </div>
+
+        <div class="employmentdetails mb-3">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="edunote">
+                <p>
+                  Starting with your present or most recent post, list in reverse order every employment during
+                  the last ten years (if possible) and any significant experience not included in that period
+                  which you believe will be helpful in evaluating your record.
+                </p>
+              </div>
+              <div class="edunote">
+                <p>
+                  Present Post (Last Post, If Not Presently In Employment)
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="submitbtn w-100 text-right">
+                <button><i class="fa fa-plus" (click)="AddEmploymentRecord()"> Add more record</i></button>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="edudetailsblocksmodal mb-3">
+                <div class="blockborder" *ngFor="let empRecord of objContractor.employment; let i = index">
+                  <div class="row">
+                    <div class="col-lg-12 pt-3">
+                      <div class="submitbtn w-100 text-right" *ngIf="i != 0">
+                        <button (click)="DeleteEmploymentRecord(i)"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <div class="fromtodate">
+                        <div class="fromdate">
+                          <div class="formlabel">
+                            <label>From <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <div class="dobselection">
+                            <select name="FromYear{{i}}" #FromYear="ngModel" id="FromYear{{i}}"
+                                    [(ngModel)]="empRecord.fromYear" required>
+                              <option [ngValue]="null" disabled selected hidden>Select Year</option>
+                              <option *ngFor="let Year of EmploymentYear" value={{Year}}>{{Year}}</option>
+                            </select>
+                            <select name="FromMonth{{i}}" #FromMonth="ngModel" id="FromMonth{{i}}"
+                                    [(ngModel)]="empRecord.fromMonth" required>
+                              <option [ngValue]="null" disabled selected hidden>Select Month</option>
+                              <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                            </select>
+                            <div *ngIf="FromYear.invalid || FromMonth.invalid && IsValid"
+                                 class="text text-danger">
+                              <div *ngIf="FromYear.errors?.required || FromMonth.errors?.required && IsValid">
+                                Present Post From Year<br /> And Month Is required.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="todate">
+                          <div class="formlabel">
+                            <label>To <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <div class="dobselection">
+                            <select name="ToYear{{i}}" #ToYear="ngModel" id="ToYear{{i}}"
+                                    [(ngModel)]="empRecord.toYear" required>
+                              <option [ngValue]="null" disabled selected hidden>Select Year</option>
+                              <option *ngFor="let Year of EmploymentYear" value={{Year}}>{{Year}}</option>
+                            </select>
+                            <select name="ToMonth{{i}}" #ToMonth="ngModel" id="ToMonth{{i}}"
+                                    [(ngModel)]="empRecord.toMonth" required>
+                              <option [ngValue]="null" disabled selected hidden>Select Month</option>
+                              <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                            </select>
+                            <div *ngIf="ToMonth.invalid || ToMonth.invalid && IsValid"
+                                 class="text text-danger">
+                              <div *ngIf="ToMonth.errors?.required || ToMonth.errors?.required && IsValid">
+                                Present Post To Year<br /> And Month Is required.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                      <div class="formlabel">
+                        <label>Name of Employer <span><i class="mdi mdi-hexagram"></i></span></label>
+                      </div>
+                      <input type="text" name="EmployerName{{i}}" #EmployerName="ngModel" id="EmployerName{{i}}" autocomplete="off"
+                             [(ngModel)]="empRecord.employerName" placeholder="Name of Employer" required>
+                      <div *ngIf="EmployerName.invalid && IsValid" class="text text-danger">
+                        <div *ngIf="EmployerName.errors?.required && IsValid">
+                          Name of Employer Is required.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                      <div class="formlabel">
+                        <label>Title of Position <span><i class="mdi mdi-hexagram"></i></span></label>
+                      </div>
+                      <input type="text" name="Position{{i}}" placeholder="Title of Position" #Position="ngModel" id="Position{{i}}" autocomplete="off"
+                             [(ngModel)]="empRecord.position" required>
+                      <div *ngIf="Position.invalid && IsValid" class="text text-danger">
+                        <div *ngIf="Position.errors?.required && IsValid">
+                          Title of Position Is required.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <div class="formlabel">
+                        <label>Address of Employer <span><i class="mdi mdi-hexagram"></i></span></label>
+                      </div>
+                      <textarea name="EmployerAddress{{i}}" #EmployerAddress="ngModel" id="EmployerAddress{{i}}" autocomplete="off"
+                                [(ngModel)]="empRecord.employerAddress" placeholder="Address of Employer" required></textarea>
+                      <div *ngIf="EmployerAddress.invalid && IsValid" class="text text-danger">
+                        <div *ngIf="EmployerAddress.errors?.required && IsValid">
+                          Address of Employer Is required.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <div class="formlabel">
+                        <label>Responsibilities <span><i class="mdi mdi-hexagram"></i></span></label>
+                      </div>
+                      <textarea name="Responsibilities{{i}}" #Responsibilities="ngModel" id="Responsibilities{{i}}" autocomplete="off"
+                                [(ngModel)]="empRecord.responsibilities" placeholder="Responsibilities" required></textarea>
+                      <div *ngIf="Responsibilities.invalid && IsValid" class="text text-danger">
+                        <div *ngIf="Responsibilities.errors?.required && IsValid">
+                          Responsibilities Is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+      <div class="border edudetailsblocksmodal">
+        <div class="blockbgtheme pageheaderblock">
+          <h5>Supporting Documents</h5>
+        </div>
+        <div class="passportimgupload">
+          <input type="file" (change)="handleInputChange($event)" multiple accept=".pdf,.doc,.docx,.jpg,.jepg,.png">
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="attachedfilesmain">
+              <ng-container *ngFor="let file of objContractor.supportingDocList;let f =index;">
+                <div class="docscuspads">
+                  <div class="dociconattach" (click)="DownloadFile(file.fileName,objContractor.id+'/'+file.docId+'/'+file.fileName,file.fileType)">
+                    <img src="../assets/img/docicons/{{file.fileType=='pdf' ?  'pdf.png'  : (file.fileType=='jpg' || file.fileType=='jepg') ? 'jpg.png' : file.fileType=='png' ? 'png.png' : (file.fileType=='docx' || file.fileType=='doc') ? 'doc.png' : '' }}" />
+                  </div>
+                  <div class="docattachcontent">
+                    <h6 class="filename mb-0">{{file.fileName}}</h6>
+                    <p class="attachfilesize mb-0 ">
+                      <i class="fa fa-times-circle-o  pl-2" aria-hidden="true" (click)="DeleteDoc(f)"></i>
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="btnUpdate(User)">Update</button>
+      <button class="btn btn-danger" (click)="modalRef.hide()">Cancel</button>
+    </div>
+  </ng-template>
+
+</form>

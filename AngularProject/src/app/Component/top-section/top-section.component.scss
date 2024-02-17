@@ -1,0 +1,12 @@
+.searchinput
+{
+    height:41px;
+}
+@media (max-width:991px){
+  .collapse:not(.show) {
+    display: block;
+  }
+  button.navbar-toggler:focus{
+      box-shadow:none;
+  }
+}

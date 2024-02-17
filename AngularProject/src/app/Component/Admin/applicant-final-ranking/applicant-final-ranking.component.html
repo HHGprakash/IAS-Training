@@ -1,0 +1,52 @@
+<form role="form" id="form1" name="form" novalidate>
+  <div class="main-panel" id="griduser">
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+
+              <div class="card-header headerbgprimary">
+                <div class="row align-items-center">
+                  <div class="col-sm-6"><h4 class="card-title mt-0"> Ranking Details - {{Application?.firstName + ' ' + Application?.familyName }}({{ Application?.id}})</h4></div>
+                  <div class="col-sm-5 ms-auto text-right">
+                    <button class="btn btn-info mr-3" (click)="exportToExcel()">
+                      Export to Excel
+                    </button>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="card-body">
+                <div class="table-responsive">
+
+                  <table class="table table-condensed table-border customTable" #epltable>
+                    <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let rank of Ranks;">
+                        <td>{{rank.Question}}</td>
+                        <td>{{rank.Answer}}</td>
+                        <td>{{rank.value}}</td>
+                      </tr>
+                      <tr>
+                        <th colspan="2">Total</th>
+                        <th>{{Total}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

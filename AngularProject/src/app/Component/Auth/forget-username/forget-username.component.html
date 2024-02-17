@@ -1,0 +1,50 @@
+<div class="container-fluid mainBlockKpi">
+  <div href="http://www.creative-tim.com" class="text-white loginheader">
+    <img src="../../../assets/img/ISA_logo_white.png" style="max-width: 80px;">
+    <h6 class="mb-0 mt-2">CTP APPLICATION PORTAL</h6>
+  </div>
+</div>
+<div class="row justify-content-center mainBlockKpi align-items-center cusheight mx-0">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+
+        <form [formGroup]="resetusername" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Email is required</div>
+              <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+
+            </div>
+          </div>
+          <button class="btn btn-primary">
+            Submit
+          </button>
+          <button class="btn ml-3" type="button" routerLink="/login"><i class="mdi  mdi-arrow-left-bold"></i> Cancel</button>
+          <div *ngIf="SucMsg != ''"><h5 class="text-success mt-4">Mail has been sent please check mail.</h5></div>
+        </form>
+
+        <!--<form role="form" id="form1" name="form" #form="ngForm" novalidate>
+          <div class="form-group">
+            <label for="Email"> Enter Email ID </label>
+            <input type="Email" class="form-control"
+                   name="Email" #Email="ngModel" [(ngModel)]="User.Email" required />
+
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Email is required</div>
+              <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+
+            </div>
+          </div>
+          <button class="btn btn-primary" (click)="onSubmit(form)">
+            Resend User Name/ID
+          </button>
+          <div class="alert" *ngIf="SucMsg != ''"><p class="text-success">Email has been Send.</p><a href="/login">Click here to Login</a></div>
+        </form>-->
+      </div>
+    </div>
+  </div>
+</div>
+

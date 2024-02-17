@@ -1,0 +1,57 @@
+<div class="container-fluid mainBlockKpi">
+  <div href="http://www.creative-tim.com" class="text-white loginheader">
+    <img src="../../../assets/img/ISA_logo_white.png" style="max-width: 80px;">
+    <h6 class="mb-0 mt-2">CTP APPLICATION PORTAL</h6>
+  </div>
+</div>
+<div class="row mx-0 cusheight mainBlockKpi justify-content-center align-items-center">
+  <div class="col-md-4">
+    <div class="card">
+      <h4 class="card-header">Registration</h4>
+      <div class="card-body">
+        <form [formGroup]="registraionForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="passwordHash">Password</label>
+            <input type="password" formControlName="passwordHash" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordHash.errors }" />
+            <div *ngIf="submitted && f.passwordHash.errors" class="invalid-feedback">
+              <div *ngIf="f.passwordHash.errors.required">Password is required</div>
+              <div *ngIf="f.passwordHash.errors.minlength">Password must be at least 8 characters</div>
+            </div>
+          </div>
+
+          <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register
+          </button>
+          <div class="form-group infomsgtxt text-center">
+            <h3>Already Registered!</h3>
+            <button class="w-100" routerLink="/login">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

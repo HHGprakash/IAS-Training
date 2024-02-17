@@ -1,0 +1,171 @@
+.isaapplicationformheader {
+  position: relative;
+  padding: 23px;
+}
+
+.isapplicationopen {
+  color: #001fff !important;
+  font-weight: bold;
+}
+.isapplicationclose {
+  color: #13ad10 !important;
+  font-weight: bold;
+}
+.isapplicationtyagain {
+  color: #ee6f28 !important;
+  font-weight: bold;
+}
+.applicationstatustable table thead tr th {
+    font-weight:bold;
+}
+.pageheaderblock {
+  background-color: #1a62a0;
+}
+.dateButton {
+  background: #1a62a0 !important;
+  border: #1a62a0 !important;
+}
+.submitbtn button:hover {
+  background-color: #1a62a0;
+}
+.custom-control-label:hover,
+.langcheckbox:hover{
+  cursor: pointer;
+}
+.modal-header {
+  background-color: #1a62a0;
+}
+.modal-header h4 {
+  color: #fff;
+}
+.modal-header button {
+  opacity: 1;
+}
+.modal-header button span {
+  text-shadow: none;
+  color: #fff;
+}
+.modal-footer .btn-Success:hover {
+  background-color: #1a62a0;
+  color: #fff;
+  transition: 0.5s ease all;
+}
+.attachefiles {
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.attachedfilesmain {
+  display: flex;
+  flex-wrap:wrap;
+}
+.docfilesnameicon {
+  display: flex;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.dociconattach {
+  padding-right: 5px;
+}
+
+.dociconattach img {
+  width: 40px;
+}
+.docattachcontent h6{
+  font-size: 15px;
+  text-transform:lowercase;
+}
+.docattachcontent {
+  display: flex;
+}
+.multiselectoptionbg span{
+  position: relative;
+  width: 66%;
+  font-size: inherit;
+  font-family: inherit;
+}
+.Qualificationcusinn{
+    display:flex;
+    align-items:center;
+}
+.applicationedublock {
+  /*border-bottom: 1px solid #d0d0d0;*/
+  margin-bottom: 10px;
+}
+
+.applicationedublock .blockborder:last-child {
+  border-bottom: 0;
+}
+.blockborder
+ {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.edudetailsblocks .blockborder:last-child {
+  border-bottom: 0;
+}
+.edudetailsblocksmodal .blockborder {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.edudetailsblocksmodal .blockborder:last-child {
+  border-bottom: 0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.qualifactionadded{
+    width:calc(100% - 50px);
+}
+.removequali{
+    width:40px;
+    margin-left:10px;
+}
+.languageknown label.langcheckbox {
+  width: 100%;
+}
+.languageknown label {
+  color: #000;
+}
+.termsaccept label {
+  color: #000;
+  font-weight: bold;
+  font-size: 15px;
+}
+.fromdate .todate{
+    width:100%;
+}
+.fromtodate{
+  width: 100%;
+}
+.passportimgupload input{
+    border:0;
+}
+.applicationform .formlabel label {
+  color: #000;
+}
+.cusrediobuttoninns{
+    display:flex;
+}
+.cusdobselectioninns select {
+  width: 100%;
+  margin-right: 10px;
+  display:flex;
+}
+@media (min-width:1200px) {
+  .edufromtodate .fromdate,
+  .edufromtodate .todate {
+    min-width: 160px;
+  }
+}
+@media (max-width:575px){
+  .fromtodate{
+      flex-wrap:wrap;
+  }
+  .fromtodate .fromdate{
+      width:100%;
+  }
+  .fromtodatef .todate{
+      width:100%;
+  }
+}

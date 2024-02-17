@@ -1,0 +1,67 @@
+ <div class="wrapper" >
+  <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg" *ngIf="isnavdisplay">
+    <div class="logo">
+      <span href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <img style="max-width:80px;" src="../../../assets/img/ISA_logo_white.png" />
+        <!-- <h6 class="mb-0 mt-2">ISA Training Application</h6> -->
+        <h6 class="mb-0 mt-2">CTP APPLICATION PORTAL</h6>
+      </span>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+
+        <li *ngIf="IsDisplay" class="nav-item" routerLink="LtcUser" [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);">
+            <i class="material-icons">person</i>
+            <p>Users</p>
+          </a>
+        </li>
+
+
+        <li class="nav-item " [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);" routerLink="AllContractorTraining">
+            <i class="material-icons">library_books</i>
+            <p>All Applications</p>
+          </a>
+        </li>
+
+        <li class="nav-item " [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);" routerLink="ContractorTraining">
+            <i class="material-icons">library_books</i>
+            <p>Shortlisted Applications</p>
+          </a>
+        </li>
+
+        <li class="nav-item " [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);" routerLink="LtcResult">
+            <i class="material-icons">library_books</i>
+            <p>LTC Result</p>
+          </a>
+        </li>
+
+        <li *ngIf="IsDisplay" class="nav-item " routerLink="ContractorMaster" [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);">
+            <i class="material-icons">list</i>
+            <p>Contractor List</p>
+          </a>
+        </li>
+
+        <li *ngIf="IsDisplay" class="nav-item " routerLink="ProgramMaster" [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);">
+            <i class="material-icons">list</i>
+            <p>Program List</p>
+          </a>
+        </li>
+        <li *ngIf="IsDisplay" class="nav-item " routerLink="ApplicantDetails" [routerLinkActive]="'active'">
+          <a class="nav-link" href="javascript:void(0);">
+            <i class="material-icons">how_to_reg</i>
+            <p>Applicant Details</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <app-top-section *ngIf="isnavdisplay"></app-top-section>
+  <router-outlet></router-outlet>
+</div>
+

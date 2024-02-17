@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ttebgUjiPPRXhfBY0Lq5hsuuXp+aPmqAXpJeXMX41lW8bwTG98Zubf6eAza9uVU434rVezuXZpms8GjSL8tIyg==",
+  "success": true,
+  "projectFilePath": "E:\\TFS-Projects\\IAS-Training\\DomainLayer\\DomainLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Prakash Gadhiya\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512"
+  ],
+  "logs": []
+}

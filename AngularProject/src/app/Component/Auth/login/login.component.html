@@ -1,0 +1,54 @@
+<div class="container-fluid mainBlockKpi">
+  <div href="http://www.creative-tim.com" class="text-white loginheader">
+    <img src="../../../assets/img/ISA_logo_white.png" style="max-width: 80px;">
+    <h6 class="mb-0 mt-2">CTP APPLICATION PORTAL</h6>
+  </div>
+</div>
+<div class="row mx-0 cusheight mainBlockKpi justify-content-center align-items-center">
+  <div class="col-md-4">
+    <div class="card">
+      <h4 class="card-header">Login</h4>
+      <div class="card-body">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Username/ID</label>
+            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Username/ID is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+          </div>
+          <div class="forgitpassanduserid">
+            <div class="form-group">
+              <a href="reset-password">Reset Password</a>
+            </div>
+            <div class="form-group">
+              <a href="forget-username">Forgot Username/ID</a>
+            </div>
+          </div>
+          <!--<div class="form-group">
+            <a href="reset-password">Reset Password</a>
+          </div>-->
+          <div class="d-flex align-items-center gap-2">
+            <button [disabled]="loading" class="btn btn-primary">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Login
+            </button>
+            <button class="btn btn-primary" routerLink="/Registraion">
+              Registration
+            </button>
+          </div>
+        </form>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Invalid username or password</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

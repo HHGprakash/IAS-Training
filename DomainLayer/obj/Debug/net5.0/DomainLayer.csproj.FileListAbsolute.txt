@@ -1,0 +1,15 @@
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\DomainLayer.deps.json
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\DomainLayer.dll
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\ref\DomainLayer.dll
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\DomainLayer.pdb
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\Utility.dll
+E:\TFS-Projects\IAS-Training\DomainLayer\bin\Debug\net5.0\Utility.pdb
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.csproj.AssemblyReference.cache
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.AssemblyInfoInputs.cache
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.AssemblyInfo.cs
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.csproj.CoreCompileInputs.cache
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.csproj.CopyComplete
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.dll
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\ref\DomainLayer.dll
+E:\TFS-Projects\IAS-Training\DomainLayer\obj\Debug\net5.0\DomainLayer.pdb

@@ -1,0 +1,428 @@
+
+<div>
+ 
+ 
+  <div class="contain">
+    <div id="pdfTable" #pdftable="">
+      <div class="modal-header">
+        <div class="row w-100" style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="col-md-6">
+            <h4 class="modal-title pull-left" id="applicationdetails">Application - <b>{{applicationid}}</b></h4>
+          </div>
+          <div class="col-md-6 text-right">
+            <button class="btn btn-info" (click)="exporttopdf()">Export TO PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="IsShow">
+        <div class="ViewApplicationmain">
+          <div class="border" id="personalinfo">
+            <div class="blockbgtheme pageheaderblock mb-0">
+              <h5>Personal Information</h5>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Contractor Name : <br /><b>{{ objContractor.contractorName }}</b>
+              </div>
+              <div class="col-md-4">
+                Programme : <br /><b>{{ objContractor.programApplyingFor }}</b>
+              </div>
+              <div class="col-md-4">
+                Year : <br /><b>{{ objContractor.year }}</b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                First Name : <br /><b>{{ objContractor.title }} {{ objContractor.firstName }}</b>
+              </div>
+              <div class="col-md-4">
+                Middle Initial(s) : <br /><b>{{ objContractor.middleInitial }}</b>
+              </div>
+              <div class="col-md-4">
+                Family Name : <br /><b>{{ objContractor.familyName }}</b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Date of Birth : <br /><b><b>{{ objContractor.dateofBirth | date : "MM/dd/yyyy" }}</b></b>
+              </div>
+              <div class="col-md-4">
+                Place of Birth (City) : <br /><b>
+                  {{
+                  objContractor.placeofBirth
+                  }}
+                </b>
+              </div>
+              <div class="col-md-4">
+                Country of Birth : <br /><b>{{ objContractor.countryName }}</b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Country of Nationality : <br /><b>{{ objContractor.nationality }}</b>
+              </div>
+              <div class="col-md-4">
+                Sex : <br /><b>{{ objContractor.sex }}</b>
+              </div>
+              <div class="col-md-4">
+                Age : <br /><b>{{ age }}</b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Marital Status : <br /><b>{{ objContractor.maritalStatus }}</b>
+              </div>
+              <div class="col-md-4">
+                Residence Address : <br /><b>
+                  {{
+                  objContractor.residenceAddress
+                  }}
+                </b>
+              </div>
+              <div class="col-md-4">
+                Business Address : <br /><b>
+                  {{
+                  objContractor.businessAddress
+                  }}
+                </b>
+              </div>
+              <div class="col-sm-4" style="display: none">
+                Residence No. : <br /><b>{{ objContractor.residenceNo }}</b>
+              </div>
+              <div class="col-sm-4" style="display: none">
+                Office No. : <br /><b>{{ objContractor.officeNo }}</b>
+              </div>
+              <div class="col-sm-4">
+                Cell No. : <br /><b>{{ objContractor.cellNo }}</b>
+              </div>
+              <div class="col-sm-4" style="display: none">
+                Fax No. : <br /><b>{{ objContractor.faxNo }}</b>
+              </div>
+              <div class="col-sm-4">
+                Email : <br /><b>{{ objContractor.email }}</b>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="border" id="passportinfo">
+            <div class="blockbgtheme pageheaderblock mb-0">
+              <h5>Passport Information</h5>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-6">
+                    Passport No. : <br /><b>{{ objContractor.passportNo }}</b>
+                  </div>
+                  <div class="col-md-6">
+                    Date of Issue : <br /><b>
+                      {{ objContractor.dateofIssue | date : "MM/dd/yyyy" }}
+                    </b>
+                  </div>
+                  <div class="col-md-6">
+                    Place of Issue : <br /><b>{{ objContractor.placeofIssue }}</b>
+                  </div>
+                  <div class="col-md-6">
+                    Date of Expiry : <br /><b>
+                      {{ objContractor.dateofExpiry | date : "MM/dd/yyyy" }}
+                    </b>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" [ngStyle]="{'display': IsDisplayImg == false ? 'none' : 'block'}">
+                Passport Photo:
+                <div style="max-width: 200px"
+                     *ngIf="objContractor.PassportPhotopath != null">
+                  <img class="img-fluid"
+                       src="{{ objContractor.PassportPhotopath }}"
+                       (click)="openPassportPhoto()" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="border" id="proficiency">
+            <div class="blockbgtheme pageheaderblock mb-0">
+              <h5>Proficiency in English</h5>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Listening : <br /><b>{{ objContractor.listening }}</b>
+              </div>
+              <div class="col-md-4">
+                Speaking : <br /><b>{{ objContractor.speaking }}</b>
+              </div>
+              <div class="col-md-4">
+                Writing : <br /><b>{{ objContractor.writing }}</b>
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-md-4">
+                Reading : <br /><b>{{ objContractor.reading }}</b>
+              </div>
+              <div class="col-md-4">
+                Other Language : <br /><b>{{ objContractor.otherLanguage }}</b>
+              </div>
+              <div class="col-md-4">
+                Mother Language : <br /><b>{{ objContractor.motherLanguage }}</b>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="border" id="education">
+            <div class="blockbgtheme pageheaderblock mb-0">
+              <h5>Education (University or equivalent)</h5>
+            </div>
+            <div *ngFor="let educations of objContractor.education; let i = index">
+              <div style="border-bottom: 1px solid #dee2e6"></div>
+              <div class="row col-sm-12">
+                <div class="col-md-4">
+                  Name of Institution : <br /><b>
+                    {{
+                    educations.nameofInstitution
+                    }}
+                  </b>
+                </div>
+
+                <div class="col-md-4">
+                  md Education F rom Year And Month : <br /><b>
+                    {{ educations.educationFromYear }}
+                    {{ educations.educationFromMonth }}
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  Education To Year And Month : <br /><b>
+                    {{ educations.educationToYear }}
+                    {{ educations.educationToMonth }}
+                  </b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-md-4">
+                  Address : <br /><b>{{ educations.address }}</b>
+                </div>
+                <div class="col-md-4">
+                  Field of Study : <br /><b>
+                    {{ educations.fieldofStudy }}<br /><i class="fa fa-dot-circle-o"
+                                                          aria-hidden="true"
+                                                          *ngIf="educations.fieldofStudySubCategory"></i>
+                    {{
+                      educations.fieldofStudySubCategory
+                        ? educations.fieldofStudySubCategory
+                        : ""
+                    }}
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  Qualification : <br /><b>{{ educations.qualification }}</b>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+          <br />
+
+          <div class="border" id="additionalSkill">
+            <div class="blockbgtheme pageheaderblock mb-0"
+                 style="color: white; text-align: left">
+              <h5>Additional skills & Experience</h5>
+            </div>
+            <div *ngFor="let additionalSkill of objContractor.additionalSkills">
+              <div class="row col-sm-12">
+                <div class="col-sm-12">
+                  Previously selected for an ISA Contractor Training Programme :
+                  <br /><b>
+                    {{ additionalSkill.haveyoubeenpreviouslyselected }}
+                  </b>
+                </div>
+                <div class="col-sm-12"
+                     *ngIf="additionalSkill.haveyoubeenpreviouslyselected == 'Yes'">
+                  In Which programme and In Which year : <br /><b>
+                    {{ additionalSkill.whichprogrammeName }} -
+                    {{ additionalSkill.whichyear }}
+                  </b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-sm-12"
+                     *ngIf="
+                    additionalSkill.haveyoubeenpreviouslyselected == 'Yes' &&
+                    additionalSkill.whichprogramme != null
+                  ">
+                  Participate in the training : <br /><b>
+                    {{ additionalSkill.didyouparticipate }}
+                  </b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-sm-12">
+                  Fields/Topics of Scientific Interest : <br /><b>
+                    {{
+                    additionalSkill.fieldsofScientificInterest
+                    }}
+                  </b>
+                </div>
+                <div class="col-sm-12">
+                  Research undertaken : <br /><b>
+                    {{
+                    additionalSkill.researchundertakenifany
+                    }}
+                  </b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-sm-12">
+                  Participation in international symposia : <br /><b>
+                    {{
+                    additionalSkill.participationininternationalsymposia
+                    }}
+                  </b>
+                </div>
+                <div class="col-sm-12">
+                  At-sea Working Experience : <br /><b>
+                    {{
+                    additionalSkill.atseaWorkingExperience
+                    }}
+                  </b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-sm-12">
+                  Indicate how this Training Programme : <br /><b>
+                    {{
+                    additionalSkill.trainingProgrammewillfurtheryourcareer
+                    }}
+                  </b>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="border edudetailsblocksmodal" id="employment">
+            <div class="blockbgtheme pageheaderblock mb-0">
+              <h5>Employment Record</h5>
+            </div>
+            <div class="blockborder"
+                 *ngFor="let empRecord of objContractor.employment; let i = index">
+              <div class="row col-sm-12">
+                <div class="col-md-4">
+                  Present Post From Year And Month : <br /><b>
+                    {{ empRecord.fromYear }}
+                    {{ empRecord.fromMonthName }}
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  Present Post To Year And Month : <br /><b>
+                    {{ empRecord.toYear }}
+                    {{ empRecord.toMonthName }}
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  Name of Employer : <br /><b>{{ empRecord.employerName }}</b>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-md-4">
+                  Title of Position : <br /><b>{{ empRecord.position }}</b>
+                </div>
+                <div class="col-md-4">
+                  Address of Employer : <br /><b>
+                    {{
+                    empRecord.employerAddress
+                    }}
+                  </b>
+                </div>
+                <div class="col-md-4">
+                  Responsibilities : <br /><b>{{ empRecord.responsibilities }}</b>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+        </div>
+      </div>
+    </div>
+    <div class="border edudetailsblocksmodal" id="supportdocument">
+      <div class="blockbgtheme pageheaderblock">
+        <h5 style="margin-bottom: 0; color: #fff;">Supporting Documents</h5>
+      </div>
+      <div class="row mx-0">
+        <div class="col-sm-12">
+
+          <div *ngIf="IsShowCommentAndDocument == 'true' && IsDisplay" class="passportimgupload">
+            <input type="file" (change)="handleInputChange($event)"  multiple accept=".pdf,.doc,.docx,.jpg,.jepg,.png">
+          </div>
+
+          <div class="attachedfilesmai d-flex justify-content-evenly">
+            <ng-container *ngFor="
+                let file of objContractor.supportingDocList;
+                let f = index
+              ">
+              <div class="docscuspads">
+                <div class="dociconattach "
+                     (click)="
+                    DownloadFile(
+                      file.fileName,
+                      objContractor.id +
+                        '/' +
+                        file.docId +
+                        '/' +
+                        file.fileName,
+                      file.fileType
+                    )
+                  ">
+                  <img class="viewpageimg"
+                       src="../assets/img/docicons/{{
+                      file.fileType == 'pdf'
+                        ? 'pdf.png'
+                        : file.fileType == 'jpg' || file.fileType == 'jepg'
+                        ? 'jpg.png'
+                        : file.fileType == 'png'
+                        ? 'png.png'
+                        : file.fileType == 'docx' || file.fileType == 'doc'
+                        ? 'doc.png'
+                        : ''
+                    }}" />
+                </div>
+                <div class="docattachcontent">
+                  <h6 class="filename mb-0">{{ file.fileName }}</h6>
+                  <div *ngIf="file.IsAddNewDoc">
+                    <p class="attachfilesize mb-0 ">
+                      <i class="fa fa-times-circle-o  pl-2" aria-hidden="true" (click)="deleteFile(f)"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="IsShowCommentAndDocument == 'true' && IsDisplay" class="d-flex justify-content-end align-items-center sbcstbtnblkinn">
+      <button *ngIf="IsShowAddDocumentBtn > 0" class="btn btn-primary" (click)="AddDocument()">Save Document</button>
+    </div><br />
+
+    <div *ngIf="IsShowCommentAndDocument == 'true' && IsDisplay">
+      <div class="border edudetailsblocksmodal">
+        <div class="blockbgtheme pageheaderblock">
+          <h5 style="margin-bottom: 0; color: #fff;">Secretariat Comments</h5>
+        </div>
+        <div class="row mx-0">
+          <textarea name="Comments" class="form-control w-100"
+                    #comments="ngModel" [(ngModel)]="objContractor.comments" rows="5" (input)="handleInput($event)" placeholder="Type comment here"></textarea>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center sbcstbtnblkinn">
+        <button class="btn btn-primary" (click)="AddComments()">Add Comment</button>
+      </div>
+    </div>
+
+  </div>
+</div>

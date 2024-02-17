@@ -1,0 +1,192 @@
+<form role="form" id="form1" name="form" #User="ngForm" novalidate>
+<div class="main-panel" id="griduser">
+  <div class="content">
+
+    <div style="margin-left:95%">
+      <button class="btn btn-circle btn-success" (click)="AddUser(EditModel)">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title mt-0"> Training Officer</h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="">
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Date Of Birth</th>
+                      <th>E-mail</th>
+                      <th>Mobile No</th>
+                      <th>Phone No</th>
+                      <th>User Name</th>
+                      <th>Joining Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let User of UserList;">
+                    <td>{{User.firstName}}</td>
+                    <td>{{User.lastName}}</td>
+                    <td>{{User.dateOfBirth | date: 'dd'}}/{{User.dateOfBirth | date:'MM'}}/{{User.dateOfBirth | date: 'yyyy'}}</td>
+                    <td>{{User.email}}</td>
+                    <td>{{User.phoneNumber}}</td>
+                    <td>{{User.phoneNumber1}}</td>
+                    <td>{{User.userName}}</td>
+                    <td> {{User.joiningDate | date: 'dd'}}/{{User.joiningDate | date:'MM'}}/{{User.joiningDate | date: 'yyyy'}}</td>
+                    <td>
+                      <button type="button" class="btn btn-info btn-circle btn-xl fa fa-edit" (click)="btnEdit(User,EditModel)"></button>&nbsp;
+                      <button type="button" (click)="btnDeleteuser(User.id)" class="btn btn-danger btn-circle btn-xl fa fa-trash"></button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal -->
+ <ng-template #EditModel>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Training Officer</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="CloseModal()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+      <div class="row col-sm-12">
+        <div class="col-sm-4">
+          <label style="color:black">First Name</label>
+          <div>
+            <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="objLtcUser.FirstName"
+              class="form-control" required />
+            <div *ngIf="FirstName.invalid && IsValid" class="text text-danger">
+              <div *ngIf="FirstName.errors?.required && IsValid">
+                FirstName Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label style="color:black">Last Name</label>
+          <div>
+            <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="objLtcUser.LastName"
+              class="form-control" required />
+            <div *ngIf="LastName.invalid && IsValid" class="text text-danger">
+              <div *ngIf="LastName.errors?.required && IsValid">
+                LastName Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label style="color:black">Date Of Birth</label>
+          <div>
+            <div class="qkdatetobecomp" style="width:100%">
+              <input type="text" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}"
+                [maxDate]="{year: 3000, month: 12, day: 31}" class="form-control dateTime-Intial w-100 text-left"
+                placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required id="DateOfBirth" name="DateOfBirth"
+                [(ngModel)]="objLtcUser.DateOfBirth" #DateOfBirth="ngModel" ngControl="DateOfBirth" (click)="d1.toggle()" />
+              <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"><i
+                  class="far fa-calendar-alt" aria-hidden="true"></i></button>
+            </div>
+            <div *ngIf="DateOfBirth.invalid && IsValid" class="text text-danger">
+              <div *ngIf="DateOfBirth.errors?.required && IsValid">
+                Date Of Birth Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+
+      <div class="row col-sm-12">
+        <div class="col-sm-4">
+          <label style="color:black">E-mail</label>
+          <div>
+            <input type="text" name="Email" #Email="ngModel" [(ngModel)]="objLtcUser.Email" class="form-control"
+              required />
+            <div *ngIf="Email.invalid && IsValid" class="text text-danger">
+              <div *ngIf="Email.errors?.required && IsValid">
+                Email Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label style="color:black">Mobile No</label>
+          <div>
+            <input type="text" name="PhoneNumber1" #PhoneNumber1="ngModel" [(ngModel)]="objLtcUser.PhoneNumber1"
+              maxlength="10" class="form-control" required />
+            <div *ngIf="PhoneNumber1.invalid && IsValid" class="text text-danger">
+              <div *ngIf="PhoneNumber1.errors?.required && IsValid">
+                MobileNo Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label style="color:black">Phone No</label>
+          <div>
+            <input type="text" name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="objLtcUser.PhoneNumber"
+              maxlength="10" class="form-control"/>
+          </div>
+        </div>
+      </div><br />
+
+      <div class="row col-sm-12">
+        <div class="col-sm-4">
+          <label style="color:black">User Name</label>
+          <div>
+            <input type="text" name="UserName" #UserName="ngModel" [(ngModel)]="objLtcUser.UserName" class="form-control" required />
+            <div *ngIf="UserName.invalid && IsValid" class="text text-danger">
+              <div *ngIf="UserName.errors?.required && IsValid">
+                UserName Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label style="color:black">Joining Date</label>
+          <div>
+            <div class="qkdatetobecomp" style="width:100%">
+              <input type="text" ngbDatepicker #d2="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="{year: 3000, month: 12, day: 31}" class="form-control dateTime-Intial w-100 text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                     id="JoiningDate"
+                     name="JoiningDate"
+                     [(ngModel)]="objLtcUser.JoiningDate"
+                     #JoiningDate="ngModel"
+                     ngControl="JoiningDate" (click)="d2.toggle()"/>
+              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i class="far fa-calendar-alt" aria-hidden="true"></i></button>
+            </div>
+            <div *ngIf="JoiningDate.invalid && IsValid" class="text text-danger">
+              <div *ngIf="JoiningDate.errors?.required && IsValid">
+                JoiningDate Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="IsActive" #IsActive="ngModel" [(ngModel)]="objLtcUser.IsActive" data-toggle="toggle" checked>
+          <label> Is Active</label><br>
+       </div>
+      </div>
+    </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="btnsubmit(User)">Submit</button>
+    <button type="button" id="close" class="btn btn-danger" (click)="CloseModal()">Close</button>
+  </div>
+</ng-template>
+
+</form>

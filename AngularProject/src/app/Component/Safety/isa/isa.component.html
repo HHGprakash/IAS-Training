@@ -1,0 +1,1466 @@
+<div class="isaapplicationformheader">
+  <app-top-section></app-top-section>
+</div>
+<form role="form" id="form1" name="Isa" #Isa="ngForm" novalidate>
+
+
+  <!--  -->
+  <section class="applicationform">
+    <div class="container-fluid">
+      <!--<div class="row mt-3">
+        <div class="col-12">
+          <div class="submitbtn">
+            <button class="btn" routerLink="/ISA/Home"><i class="mdi mdi-home"></i> Home</button>
+          </div>
+        </div>
+      </div>-->
+      <div class="row mt-3">
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock mb-0">
+              <h1>Contractor Training Programme</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Instructions</h3>
+            </div>
+            <div class="instructionsinn">
+              <p>
+                All applicants must submit/upload a copy of the completed Nomination Form with this application together with a passport photo and any other relevant documents requested in the call to which applicants intend to respond. Only applications received within the deadline and with the completed Nomination Forms will be considered. Please ensure that you select the correct contractor’s name (including mineral type PMN/PMS/CFC) and training type (at-sea/Master’s etc.) as listed in the call for nominations. This will avoid the application being placed in the wrong selection pool and/or your application being deemed null and void.
+              </p>
+              <p>
+                Please answer each question clearly.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3> Contractor and Programme  </h3>
+            </div>
+            <div class="instructionsinn">
+              <p>
+                Please ensure that you select the correct Contractor and Programme as it appears in the call for nomination. Hence and otherwise your application may be voided.
+              </p>
+            </div>
+            <div class="personalinformation">
+              <div class="row">
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Contractor Name <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="ContractorId" #ContractorId="ngModel" [(ngModel)]="ObjIsa.ContractorId" required>
+                    <option [ngValue]="undefined" selected>Select Contractor Name</option>
+                    <option *ngFor="let Contractor of ContractorMasterList" [ngValue]="Contractor.id">
+                      {{Contractor.contractorName}}
+                    </option>
+                  </select>
+                  <div *ngIf="ContractorId.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="ContractorId.errors?.required && IsValid">
+                      Contractor Name Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Programme <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="ProgramApplyingId" #ProgramApplyingId="ngModel" [(ngModel)]="ObjIsa.ProgramApplyingId"
+                          required>
+                    <option [ngValue]="undefined">Select Programme</option>
+                    <option *ngFor="let Program of ProgramMasterList" [ngValue]="Program.id">
+                      {{Program.program}}
+                    </option>
+                  </select>
+                  <div *ngIf="ProgramApplyingId.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="ProgramApplyingId.errors?.required && IsValid">
+                      Programme Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Year <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="Year" #Year="ngModel" [(ngModel)]="ObjIsa.Year" required>
+                    <option [ngValue]="null" disabled selected hidden>Select Year</option>
+                    <option *ngFor="let Year of ProgramYear" value={{Year}}>{{Year}}</option>
+                  </select>
+                  <div *ngIf="Year.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Year.errors?.required && IsValid">
+                      Year Is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Personal Information</h3>
+            </div>
+            <div class="personalinformation">
+              <div class="row">                
+                <div class="col-lg-2 mb-3">
+                  <div class="formlabel">
+                    <label>Title</label>
+                  </div>
+                  <select name="Title" #Title="ngModel" [(ngModel)]="ObjIsa.Title">
+                    <option [ngValue]="undefined">Select</option>
+                    <option>Miss</option>
+                    <option>Ms</option>
+                    <option>Mr</option>
+                    <option>Mrs</option>
+                    <option>Dr</option>
+                  </select>
+                  <div *ngIf="Title.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Title.errors?.required && IsValid">
+                      Title Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>First Name <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="firstname" #firstname="ngModel" [(ngModel)]="ObjIsa.firstname" placeholder='First Name' autocomplete="off" required>
+                  <div *ngIf="firstname.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="firstname.errors?.required && IsValid">
+                      First Name Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 mb-3">
+                  <div class="formlabel">
+                    <label>Middle Initial(s)</label>
+                  </div>
+                  <input type="text" name="MiddleInitial" #MiddleInitial="ngModel" [(ngModel)]="ObjIsa.MiddleInitial" placeholder="Middle Initial" autocomplete="off">
+                  <div *ngIf="MiddleInitial.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="MiddleInitial.errors?.required && IsValid">
+                      Middle Initial Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 mb-3">
+                  <div class="formlabel">
+                    <label>Family Name <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="FamilyName" #FamilyName="ngModel" [(ngModel)]="ObjIsa.FamilyName" placeholder="Family Name" autocomplete="off" required>
+                  <div *ngIf="FamilyName.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="FamilyName.errors?.required && IsValid">
+                      Family Name Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Date of Birth <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <div>
+                    <div class="qkdatetobecomp" style="width:100%">
+                      <input type="text" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="currentDateObject"
+                             class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                             id="DateofBirth"
+                             name="DateofBirth"
+                             [(ngModel)]="ObjIsa.DateofBirth"
+                             #DateofBirth="ngModel"
+                             ngControl="DateofBirth" onkeydown="return false" autocomplete="off" (click)="d1.toggle()" />
+                      <button class="btn btn-outline-secondary calendar dateButton" (click)="d1.toggle()" type="button">
+                        <i _ngcontent-aks-c111="" class="material-icons">
+                          today
+                        </i>
+                      </button>
+                    </div>
+                    <div *ngIf="DateofBirth.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="DateofBirth.errors?.required && IsValid">
+                        Date of Birth Is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Place of Birth (City) <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="PlaceofBirth" #PlaceofBirth="ngModel" [(ngModel)]="ObjIsa.PlaceofBirth" placeholder="Place of Birth" autocomplete="off"
+                         required>
+                  <div *ngIf="PlaceofBirth.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="PlaceofBirth.errors?.required && IsValid">
+                      Place of Birth Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Country of Birth <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="Country" #Country="ngModel" [(ngModel)]="ObjIsa.Country" required>
+                    <option [ngValue]="undefined">Select Country of Birth</option>
+                    <option *ngFor="let Country of Countries" value={{Country.id}}>{{Country.countryName}}</option>
+                  </select>
+                  <div *ngIf="Country.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Country.errors?.required && IsValid">
+                      Country of Birth Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Country of Nationality <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <!-- <input type="text" name="Nationality" #Nationality="ngModel" [(ngModel)]="ObjIsa.Nationality" placeholder="Country of Nationality" autocomplete="off"
+                         required>
+                  <div *ngIf="Nationality.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Nationality.errors?.required && IsValid">
+                      Country of Nationality Is required.
+                    </div>
+                  </div> -->
+                  <select name="CountryOfNationality" #CountryOfNationality="ngModel" [(ngModel)]="ObjIsa.CountryOfNationality" required>  
+                    <option [ngValue]="undefined">Select Country of Nationality</option>
+                    <option *ngFor="let Nationality of CountryOfNationalityList" value={{Nationality.id}}>{{Nationality.countryName}}</option>
+                  </select>
+                  <div *ngIf="CountryOfNationality.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="CountryOfNationality.errors?.required && IsValid">
+                      Country of Nationality Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Gender <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="Sex" #Sex="ngModel" [(ngModel)]="ObjIsa.Sex" required>
+                    <option [ngValue]="undefined">Select Gender </option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                  <div *ngIf="Sex.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Sex.errors?.required && IsValid">
+                      Gender Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Marital Status <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <select name="MaritalStatus" #MaritalStatus="ngModel" [(ngModel)]="ObjIsa.MaritalStatus" required>
+                    <option [ngValue]="undefined">
+                      Select Marital Status
+                    </option>
+                    <option>Single</option>
+                    <option>Married</option>
+                    <option>Divorced</option>
+                    <option>Widowed</option>
+                  </select>
+                  <div *ngIf="MaritalStatus.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="MaritalStatus.errors?.required && IsValid">
+                      Marital Status Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                  <div class="formlabel">
+                    <label>Residence Address <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <textarea name="ResidenceAddress" #ResidenceAddress="ngModel" [(ngModel)]="ObjIsa.ResidenceAddress" placeholder="Residence Address " autocomplete="off"
+                            required></textarea>
+                  <div *ngIf="ResidenceAddress.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="ResidenceAddress.errors?.required && IsValid">
+                      Residence Address Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                  <div class="formlabel">
+                    <label>Business Address <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <textarea name="BusinessAddress" #BusinessAddress="ngModel" [(ngModel)]="ObjIsa.BusinessAddress" placeholder="Business  Address " autocomplete="off"
+                            required></textarea>
+                  <div *ngIf="BusinessAddress.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="BusinessAddress.errors?.required && IsValid">
+                      Business Address Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3" style="display:none">
+                  <div class="formlabel">
+                    <label>Residence No. <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="Residenceno" placeholder="Residence No"
+                         #ResidenceNo="ngModel" [(ngModel)]="ObjIsa.ResidenceNo" autocomplete="off" >
+                  <div *ngIf="ResidenceNo.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="ResidenceNo.errors?.required && IsValid">
+                      Residence No Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3" style="display:none">
+                  <div class="formlabel">
+                    <label>Office No. <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="OfficeNo" placeholder="Office No"
+                         #OfficeNo="ngModel" [(ngModel)]="ObjIsa.OfficeNo" autocomplete="off" >
+                  <div *ngIf="OfficeNo.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="OfficeNo.errors?.required && IsValid">
+                      Office No Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                  <div class="formlabel">
+                    <label>Cell No. <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="CellNo" placeholder="Cell No"
+                         #CellNo="ngModel" [(ngModel)]="ObjIsa.CellNo" autocomplete="off" required>
+                  <div *ngIf="CellNo.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="CellNo.errors?.required && IsValid">
+                      Cell No Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3" style="display:none">
+                  <div class="formlabel">
+                    <label>Fax No. <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="FaxNo" placeholder="Fax No"
+                         #FaxNo="ngModel" [(ngModel)]="ObjIsa.FaxNo" autocomplete="off" >
+                  <div *ngIf="FaxNo.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="FaxNo.errors?.required && IsValid">
+                      Fax No Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                  <div class="formlabel">
+                    <label>Email <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="Email" placeholder="Enter your email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+                         #Email="ngModel" [(ngModel)]="ObjIsa.Email" autocomplete="off" required>
+                  <div *ngIf="Email.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Email.errors?.required && IsValid">
+                      Email Is required.
+                    </div>
+                  </div>
+                  <div *ngIf="Email.errors?.pattern" class="text text-danger">
+                    Email is not Valid.
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Passport Information</h3>
+            </div>
+            <div class="passportinfo">
+              <div class="row">
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Passport No. <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="PassportNo" #PassportNo="ngModel" [(ngModel)]="ObjIsa.PassportNo" placeholder="Passport No." autocomplete="off" required>
+                  <div *ngIf="PassportNo.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="PassportNo.errors?.required && IsValid">
+                      Passport No Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Date of Issue <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <div>
+                    <div class="qkdatetobecomp" style="width:100%">
+                      <input type="text" ngbDatepicker #d2="ngbDatepicker" [minDate]="{year: 1800, month: 1, day: 1}" [maxDate]="currentDateObject"
+                             class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                             id="DateofIssue"
+                             name="DateofIssue"
+                             [(ngModel)]="ObjIsa.DateofIssue"
+                             #DateofIssue="ngModel"
+                             ngControl="DateofIssue" onkeydown="return false" autocomplete="off" (click)="d2.toggle()" />
+                      <button class="btn btn-outline-secondary calendar dateButton" (click)="d2.toggle()" type="button">
+                        <i _ngcontent-aks-c111="" class="material-icons">
+                          today
+                        </i>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="DateofIssue.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="DateofIssue.errors?.required && IsValid">
+                      Date of Issue Is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Place of Issue <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <input type="text" name="PlaceofIssue" #PlaceofIssue="ngModel" [(ngModel)]="ObjIsa.PlaceofIssue" placeholder="Place of Issue" autocomplete="off"
+                         required>
+                  <div *ngIf="PlaceofIssue.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="PlaceofIssue.errors?.required && IsValid">
+                      Place of Issue Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <div class="formlabel">
+                    <label>Date of Expiry <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <div>
+                    <div class="qkdatetobecomp" style="width:100%">
+                      <input type="text" ngbDatepicker #d3="ngbDatepicker" [minDate]="currentDateObject" [maxDate]="{year: 3000, month: 12, day: 31}"
+                             class="form-control dateTime-Intial text-left" placeholder="MM/DD/YYYY" rInputMask="99/99/9999" required
+                             id="DateofExpiry"
+                             name="DateofExpiry"
+                             [(ngModel)]="ObjIsa.DateofExpiry"
+                             #DateofExpiry="ngModel"
+                             ngControl="DateofExpiry" onkeydown="return false" autocomplete="off" (click)="d3.toggle()" />
+                      <button class="btn btn-outline-secondary calendar dateButton" (click)="d3.toggle()" type="button">
+                        <i _ngcontent-aks-c111="" class="material-icons">
+                          today
+                        </i>
+                      </button>
+                    </div>
+                    <div *ngIf="DateofExpiry.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="DateofExpiry.errors?.required && IsValid">
+                        Date of Expiry Is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 mb-3">
+                  <div class="formlabel">
+                    <label>Passport Photo <!--<span><i class="mdi mdi-hexagram"></i></span>--></label>
+                  </div>
+                  <div class="passportimgupload passportimg">
+                    <input type="file"
+                           accept="image/png, image/jpg, image/jpeg"
+                           (change)="onPassportPhotoUpload($event)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Proficiency in English</h3>
+            </div>
+            <div class="languageknown">
+              <div class="row">
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                  <div class="languageheader">
+                    <h3>Listening <span><i class="mdi mdi-hexagram"></i></span></h3>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline1" name="Listening" #Listening="ngModel"
+                           [(ngModel)]="ObjIsa.Listening" value="Poor" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline1">Poor</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline2" name="Listening" #Listening="ngModel"
+                           [(ngModel)]="ObjIsa.Listening" value="Fair" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline2">Fair</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline3" name="Listening" #Listening="ngModel"
+                           [(ngModel)]="ObjIsa.Listening" value="Good" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline3">Good</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline4" name="Listening" #Listening="ngModel"
+                           [(ngModel)]="ObjIsa.Listening" value="Excellent" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline4">Excellent</label>
+                  </div>
+                  <div *ngIf="Listening.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Listening.errors?.required && IsValid">
+                      Listening Is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                  <div class="languageheader">
+                    <h3>Speaking <span><i class="mdi mdi-hexagram"></i></span></h3>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline5" name="Speaking" #Speaking="ngModel"
+                           [(ngModel)]="ObjIsa.Speaking" value="Poor" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline5">Poor</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline6" name="Speaking" #Speaking="ngModel"
+                           [(ngModel)]="ObjIsa.Speaking" value="Fair" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline6">Fair</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline7" name="Speaking" #Speaking="ngModel"
+                           [(ngModel)]="ObjIsa.Speaking" value="Good" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline7">Good</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline8" name="Speaking" #Speaking="ngModel"
+                           [(ngModel)]="ObjIsa.Speaking" value="Excellent" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline8">Excellent</label>
+                  </div>
+                  <div *ngIf="Speaking.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Speaking.errors?.required && IsValid">
+                      Speaking Is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                  <div class="languageheader">
+                    <h3>Writing <span><i class="mdi mdi-hexagram"></i></span></h3>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline9" name="Writing" #Writing="ngModel"
+                           [(ngModel)]="ObjIsa.Writing" value="Poor" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline9">Poor</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline10" name="Writing" #Writing="ngModel"
+                           [(ngModel)]="ObjIsa.Writing" value="Fair" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline10">Fair</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline11" name="Writing" #Writing="ngModel"
+                           [(ngModel)]="ObjIsa.Writing" value="Good" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline11">Good</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline12" name="Writing" #Writing="ngModel"
+                           [(ngModel)]="ObjIsa.Writing" value="Excellent" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline12">Excellent</label>
+                  </div>
+                  <div *ngIf="Writing.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Writing.errors?.required && IsValid">
+                      Writing Is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                  <div class="languageheader">
+                    <h3>Reading <span><i class="mdi mdi-hexagram"></i></span></h3>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline13" name="Reading" #Reading="ngModel"
+                           [(ngModel)]="ObjIsa.Reading" value="Poor" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline13">Poor</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline14" name="Reading" #Reading="ngModel"
+                           [(ngModel)]="ObjIsa.Reading" value="Fair" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline14">Fair</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline15" name="Reading" #Reading="ngModel"
+                           [(ngModel)]="ObjIsa.Reading" value="Good" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline15">Good</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInline16" name="Reading" #Reading="ngModel"
+                           [(ngModel)]="ObjIsa.Reading" value="Excellent" class="custom-control-input" required>
+                    <label class="custom-control-label" for="customRadioInline16">Excellent</label>
+                  </div>
+                  <div *ngIf="Reading.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Reading.errors?.required && IsValid">
+                      Reading Is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4  col-md-8 mb-3">
+                  <div class="languageheader">
+                    <h3>Other Language (UN official Languages)</h3>
+                  </div>
+                  <label *ngFor="let Language of OtherLanguagelist; let i = index" class="cr-checkBox langcheckbox">
+
+                    <input type="checkbox" name="OtherLanguage{{i}}" id="OtherLanguage{{i}}" value="{{Language.languageName}}" [checked]="Language.isChecked"
+                           (change)="OtherLanguageCheckChange(i)">
+                    <span class="checkmark"></span>&nbsp;&nbsp;
+                    {{Language.languageName}}
+                  </label>
+                </div>
+                <div class="col-lg-12 col-md-4 mb-3">
+                  <div class="languageheader">
+                    <h3>Mother Tongue <span><i class="mdi mdi-hexagram"></i></span></h3>
+                  </div>
+                  <input class="motherlang" type="text" name="MotherLanguage" #MotherLanguage="ngModel" autocomplete="off"
+                         [(ngModel)]="ObjIsa.MotherLanguage" placeholder="Mother Tongue">
+                  <div *ngIf="MotherLanguage.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="MotherLanguage.errors?.required && IsValid">
+                      Mother Tongue Is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Education (University or equivalent)</h3>
+            </div>
+            <div class="edunote">
+              <p>Give full details in so far as possible </p>
+            </div>
+            <div class="edudetails applicationedublock">
+              <div class="blockborder" *ngFor="let Education of ObjIsa.Education; let i = index">
+                <div class="row">
+                  <div class="col-lg-12 pt-3">
+                    <div class="submitbtn w-100 text-right" *ngIf="i != 0">
+                      <button (click)="DeleteEducationRecord(i)"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 mb-3">
+                    <div class="formlabel">
+                      <label>Name of Institution <span><i class="mdi mdi-hexagram"></i></span></label>
+                    </div>
+                    <input type="text" name="NameofInstitution{{i}}" #NameofInstitution="ngModel" id="NameofInstitution{{i}}" placeholder="Name of Institution " autocomplete="off"
+                           [(ngModel)]="Education.NameofInstitution" required>
+                    <div *ngIf="NameofInstitution.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="NameofInstitution.errors?.required && IsValid">
+                        Name of Institution Is required.
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="col-xl-4 mb-3">
+              <div class="formlabel">
+                <label>Program Applying For <span><i class="mdi mdi-hexagram"></i></span></label>
+              </div>
+              <select name="ProgramApplying" #ProgramApplying="ngModel" [(ngModel)]="ObjIsa.ProgramApplying"
+                      required>
+                <option [ngValue]="undefined">Select</option>
+                <option>At - Sea Training</option>
+              </select>
+              <div *ngIf="ProgramApplying.invalid && IsValid" class="text text-danger">
+                <div *ngIf="ProgramApplying.errors?.required && IsValid">
+                  Program Applying Is required.
+                </div>
+              </div>
+            </div>-->
+                  <div class="col-xl-8 mb-3">
+                    <div class="fromtodate edufromtodate">
+                      <div class="fromdate pr-1">
+                        <div class="formlabel">
+                          <label>From <span><i class="mdi mdi-hexagram"></i></span></label>
+                        </div>
+                        <div class="dobselection">
+                          <select name="EducationFromYear{{i}}" #EducationFromYear="ngModel" id="EducationFromYear{{i}}"
+                                  [(ngModel)]="Education.EducationFromYear" required>
+                            <option [ngValue]="null" disabled selected hidden>Year</option>
+                            <option *ngFor="let Year of EducationYear" value={{Year}}>{{Year}}</option>
+                          </select>
+                          <select name="EducationFromMonth{{i}}" #EducationFromMonth="ngModel" id="EducationFromMonth{{i}}"
+                                  [(ngModel)]="Education.EducationFromMonth" required>
+                            <option [ngValue]="null" disabled selected hidden>Month</option>
+                            <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                          </select>
+                          <div *ngIf="EducationFromYear.invalid || EducationFromMonth.invalid && IsValid"
+                               class="text text-danger">
+                            <div *ngIf="(EducationFromYear.errors?.required || EducationFromMonth.errors?.required )&& IsValid">
+                              Education From Year <br /> And Month Is required.
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="todate pr-1">
+                        <div class="formlabel">
+                          <label>To <span><i class="mdi mdi-hexagram"></i></span></label>
+                        </div>
+                        <div class="dobselection">
+                          <select name="EducationToYear{{i}}" #EducationToYear="ngModel" [(ngModel)]="Education.EducationToYear"
+                                  id="EducationToYear{{i}}" required>
+                            <option [ngValue]="null" disabled selected hidden>Year</option>
+                            <option *ngFor="let Year of EducationYear" value={{Year}}>{{Year}}</option>
+                          </select>
+                          <select name="EducationToMonth{{i}}" #EducationToMonth="ngModel" id="EducationToMonth{{i}}"
+                                  [(ngModel)]="Education.EducationToMonth" required>
+                            <option [ngValue]="null" disabled selected hidden>Month</option>
+                            <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                          </select>
+                          <div *ngIf="EducationToYear.invalid || EducationToMonth.invalid && IsValid"
+                               class="text text-danger">
+                            <div *ngIf="(EducationToYear.errors?.required || EducationToMonth.errors?.required )&& IsValid">
+                              Education To Year <br />And Month Is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <div class="formlabel">
+                      <label>Address <span><i class="mdi mdi-hexagram"></i></span></label>
+                    </div>
+                    <textarea name="Address{{i}}" #Address="ngModel" [(ngModel)]="Education.Address" placeholder="Address"
+                              id="Address{{i}}" autocomplete="off" required></textarea>
+                    <div *ngIf="Address.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="Address.errors?.required && IsValid">
+                        Address Is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <div class="formlabel">
+                      <label>Field of Study <span><i class="mdi mdi-hexagram"></i></span></label>
+                    </div>
+                    <select name="FieldofStudy{{i}}" #FieldofStudy="ngModel" [(ngModel)]="Education.FieldofStudy"
+                            id="FieldofStudy{{i}}" required (change)="changeStudy(Education.FieldofStudy,i)">
+                      <option [ngValue]="null" disabled selected hidden>Select</option>
+                      <option *ngFor="let Study of StudiesList" value="{{Study.Name}}">{{Study.Name}} </option>
+                    </select>
+                    <div *ngIf="FieldofStudy.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="FieldofStudy.errors?.required && IsValid">
+                        Field of Study Is required.
+                      </div>
+                    </div>
+                    <ng-container *ngIf="Education.SubCategory && Education.SubCategory.length > 0">
+                      <select name="FieldofStudySubCategory{{i}}" id="FieldofStudySubCategory{{i}}"
+                              class="mt-2" #FieldofStudySubCategory="ngModel" [(ngModel)]="Education.FieldofStudySubCategory" required>
+                        <option [ngValue]="null" disabled selected hidden>Select sub category of study</option>
+                        <option *ngFor="let Study of Education.SubCategory" value="{{Study.Name}}">{{Study.Name}} </option>
+                      </select>
+                      <div *ngIf="FieldofStudySubCategory?.invalid && IsValid" class="text text-danger">
+                        <div *ngIf="FieldofStudySubCategory?.errors?.required && IsValid">
+                          Sub category of Study Is required.
+                        </div>
+                      </div>
+                    </ng-container>
+
+
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <div class="formlabel">
+                      <label>Qualification<span><i class="mdi mdi-hexagram"></i></span></label>
+                    </div>
+                    <div class="Qualificationcusinn">
+                      <div class="qualifactionadded">
+                        <ng-multiselect-dropdown class="multiselectoptionbg ps-0" [placeholder]="'Select'"
+                                                 [ngModelOptions]="{standalone: true}" style="width:100%;"
+                                                 id="Qualification{{i}}" name="Qualification{{i}}"
+                                                 [data]="QualificationList"
+                                                 [(ngModel)]="Education.Qualification"
+                                                 [settings]="dropdownSettings"
+                                                 (onSelect)="onItemSelect()"
+                                                 (onDeSelect)="onItemDeSelect()"
+                                                 #Qualification="ngModel"
+                                                 ngControl="Qualification" required>
+
+                        </ng-multiselect-dropdown>
+
+                      </div>
+                      <div *ngIf="Education.ExtraQualificationList.length < 2" class="submitbtn removequali" (click)="AddQualification(i)">
+                        <button><i class="fa fa-plus"></i></button>
+                      </div>
+                    </div>
+                    <div *ngIf="Qualification.invalid && IsValid" class="text text-danger">
+                      <div *ngIf="Qualification.errors?.required && IsValid">
+                        Qualification Is required.
+                      </div>
+                    </div>
+                    <div *ngFor="let ExtraQual of Education.ExtraQualificationList; let j = index" class="d-flex w-100 mt-2">
+                      <div class="qualifactionadded">
+                        <input type="text" name="ExtraQual{{i}}{{j}}" #ExtraQualification="ngModel" id="ExtraQual{{i}}{{j}}"
+                               [(ngModel)]="ExtraQual.ExtraQualification" required autocomplete="off">
+                        <div *ngIf="ExtraQualification.invalid && IsValid" class="text text-danger">
+                          <div *ngIf="ExtraQualification.errors?.required && IsValid">
+                            Qualification Is required.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="submitbtn removequali" (click)="DeleteQualification(i,j)">
+                        <button><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="addedublock" *ngIf="ObjIsa.Education.length < 3">
+              <div class="submitbtn text-right">
+                <button (click)="AddEducationRecored()"><i class="fa fa-plus"> Add more education</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme additionaldetails">
+            <div class="pageheaderblock edudetails ">
+              <h3>Additional skills & Experience</h3>
+            </div>
+            <label class="text-black">Have you been previously selected for an ISA Contractor Training Programme? <span><i class="mdi mdi-hexagram text-danger"></i></span></label>
+            <div class="cusrediobuttoninns my-2">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadioInlineyes" name="addiskil" value="Yes" class="custom-control-input"
+                       #Haveyoubeenpreviouslyselected="ngModel" [(ngModel)]="ObjIsa.Haveyoubeenpreviouslyselected" required>
+                <label class="custom-control-label text-black" for="customRadioInlineyes">Yes</label>
+              </div>
+              <div class="custom-control custom-radio ml-2">
+                <input type="radio" id="customRadioInlineno" name="addiskil" value="No" class="custom-control-input"
+                       #Haveyoubeenpreviouslyselected="ngModel" [(ngModel)]="ObjIsa.Haveyoubeenpreviouslyselected" required>
+                <label class="custom-control-label text-black" for="customRadioInlineno">No</label>
+              </div>
+
+            </div>
+            <div *ngIf="Haveyoubeenpreviouslyselected.invalid && IsValid" class="text text-danger">
+              <div *ngIf="Haveyoubeenpreviouslyselected.errors?.required && IsValid">
+                Have you been previously selected for an ISA Contractor Training Programme Is required.
+              </div>
+            </div>
+            <ng-container *ngIf="ObjIsa.Haveyoubeenpreviouslyselected == 'Yes'">
+              <label class="pt-1 text-black">If yes, for which programme and in which year?<span><i class="mdi mdi-hexagram text-danger"></i></span></label>
+              <div class="fromtodate my-2">
+                <div class="fromdate pr-2">
+
+                  <div class="cusdobselectioninns">
+                    <div class="d-flex">
+                      <div>
+                        <select name="Whichyear" #Whichyear="ngModel" [(ngModel)]="ObjIsa.Whichyear" required>
+                          <option [ngValue]="null" disabled selected hidden>Select Year</option>
+                          <option *ngFor="let Year of ProgramYear" value={{Year}}>{{Year}}</option>
+                        </select>
+                        <div *ngIf="Whichyear.invalid && IsValid" class="text text-danger">
+                          <div *ngIf="Whichyear.errors?.required && IsValid">
+                            Year Is required.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pl-2">
+                        <select name="Whichprogramme" #Whichprogramme="ngModel" [(ngModel)]="ObjIsa.Whichprogramme"
+                                required>
+                          <option [ngValue]="undefined">Select Program</option>
+                          <option *ngFor="let Program of ProgramMasterList" [ngValue]="Program.id">
+                            {{Program.program}}
+                          </option>
+                        </select>
+                        <div *ngIf="Whichprogramme.invalid && IsValid" class="text text-danger">
+                          <div *ngIf="Whichprogramme.errors?.required && IsValid">
+                            Programme  Is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="ObjIsa.Whichprogramme != null">
+                <label class="text-black mb-0">Did you participate in the training?<span><i class="mdi mdi-hexagram text-danger"></i></span></label>
+                <div class="cusrediobuttoninns my-2">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadioInlinessyes" name="Didyouparticipate" value="Yes" class="custom-control-input"
+                           #Didyouparticipate="ngModel" [(ngModel)]="ObjIsa.Didyouparticipate" required>
+                    <label class="custom-control-label text-black" for="customRadioInlinessyes">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio ml-2">
+                    <input type="radio" id="customRadioInlinessno" name="Didyouparticipate" value="No" class="custom-control-input"
+                           #Didyouparticipate="ngModel" [(ngModel)]="ObjIsa.Didyouparticipate" required>
+                    <label class="custom-control-label text-black" for="customRadioInlinessno">No</label>
+                  </div>
+                </div>
+                <div *ngIf="Didyouparticipate.invalid && IsValid" class="text text-danger">
+                  <div *ngIf="Didyouparticipate.errors?.required && IsValid">
+                    Did you participate in the training  Is required.
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <div class="edudetails">
+              <div class="row">
+                <div class="col-lg-12 mb-3">
+                  <div class="formlabel">
+                    <label>Fields/Topics of Scientific Interest <span><i class="mdi mdi-hexagram text-danger"></i></span></label>
+                  </div>
+                  <textarea name="FieldsofScientificInterest" #FieldsofScientificInterest="ngModel" placeholder="(not more than 100 words)" autocomplete="off" id="FieldsofScientificInterest"
+                            [(ngModel)]="ObjIsa.FieldsofScientificInterest" required (input)="InputFieldsofScientificInterestLength($event,100)"></textarea>
+                  <div *ngIf="FieldsofScientificInterest.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="FieldsofScientificInterest.errors?.required && IsValid">
+                      Fields of Scientific Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3">
+                  <div class="formlabel">
+                    <label>Research undertaken, if any</label>
+                  </div>
+                  <textarea name="Researchundertakenifany" id="Researchundertakenifany" #Researchundertakenifany="ngModel" placeholder="(Highlights, not more than 100 words)" autocomplete="off"
+                            [(ngModel)]="ObjIsa.Researchundertakenifany" (input)="InputResearchundertakenMaxwordLength($event,100)"></textarea>
+                  <!--<div class="edunote">
+              <p>(Highlights, not more than 100 words)</p>
+            </div>-->
+                </div>
+                <div class="col-lg-12 mb-3">
+                  <div class="formlabel">
+                    <label>
+                      Participation in international symposia/workshops, fellowships and other training
+                      programmes <!--<span><i class="mdi mdi-hexagram"></i></span>-->
+                    </label>
+                  </div>
+                  <textarea name="Participationininternationalsymposia" #Participationininternationalsymposia="ngModel" placeholder="(not more than 100 words)" id="Participationininternationalsymposia"
+                            [(ngModel)]="ObjIsa.Participationininternationalsymposia" autocomplete="off" (input)="InputParticipationininternationalsymposiaLength($event,100)"></textarea>
+                  <div *ngIf="Participationininternationalsymposia.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="Participationininternationalsymposia.errors?.required && IsValid">
+                      Participation ininternational symposia Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3">
+                  <div class="formlabel">
+                    <label>At-sea Working Experience <span><i class="mdi mdi-hexagram"></i></span></label>
+                  </div>
+                  <textarea name="AtseaWorkingExperience" #AtseaWorkingExperience="ngModel" placeholder="(Name of Vessel, Date, Duration, Purpose of Cruise)" autocomplete="off"
+                            [(ngModel)]="ObjIsa.AtseaWorkingExperience" required></textarea>
+                  <div *ngIf="AtseaWorkingExperience.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="AtseaWorkingExperience.errors?.required && IsValid">
+                      At-seaWorking Experience Is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3">
+                  <div class="formlabel">
+                    <label>
+                      Indicate how this Training Programme will further your career <span>
+                        <i class="mdi mdi-hexagram"></i>
+                      </span>
+                    </label>
+                  </div>
+                  <textarea name="TrainingProgrammewillfurtheryourcareer" id="TrainingProgrammewillfurtheryourcareer"
+                            #TrainingProgrammewillfurtheryourcareer="ngModel" placeholder="(not more than 250 words)" autocomplete="off"
+                            [(ngModel)]="ObjIsa.TrainingProgrammewillfurtheryourcareer" (input)="InputMaxwordLength($event,250)" required></textarea>
+                  <div *ngIf="TrainingProgrammewillfurtheryourcareer.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="TrainingProgrammewillfurtheryourcareer.errors?.required && IsValid">
+                      Indicate how this Training Programme will further your career
+                      Is required.
+                    </div>
+                  </div>
+                  <!--<div class="edunote">
+              <p>(not more than 250 words) </p>
+            </div>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Employment Record</h3>
+            </div>
+            <div class="employmentdetails">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="edunote">
+                    <p>
+                      Starting with your present or most recent post, list in reverse order every employment during
+                      the last ten years (if possible) and any significant experience not included in that period
+                      which you believe will be helpful in evaluating your record.
+                    </p>
+                  </div>
+                  <div class="edunote">
+                    <p>
+                      Present Post (Last Post, If Not Presently In Employment)
+                    </p>
+                  </div>
+                </div>
+                <!--<div class="col-lg-12">
+            <div class="submitbtn w-100 text-right">
+              <button (click)="AddEmploymentRecord()"><i class="fa fa-plus"> Add more record</i></button>
+            </div>
+          </div>-->
+                <div class="col-lg-12">
+                  <div class="edudetailsblocks mb-3">
+                    <div class="blockborder" *ngFor="let empRecord of ObjIsa.Employment; let i = index">
+                      <div class="row">
+                        <div class="col-lg-12 pt-3">
+                          <div class="submitbtn w-100 text-right" *ngIf="i != 0">
+                            <button (click)="DeleteEmploymentRecord(i)"><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                          <div class="fromtodate">
+                            <div class="fromdate pr-2">
+                              <div class="formlabel">
+                                <label>From <span><i class="mdi mdi-hexagram"></i></span></label>
+                              </div>
+                              <div class="dobselection">
+                                <select name="FromYear{{i}}" #FromYear="ngModel" id="FromYear{{i}}"
+                                        [(ngModel)]="empRecord.FromYear" required>
+                                  <option [ngValue]="null" disabled selected hidden>Year</option>
+                                  <option *ngFor="let Year of EmploymentYear" value={{Year}}>{{Year}}</option>
+                                </select>
+                                <select name="FromMonth{{i}}" #FromMonth="ngModel" id="FromMonth{{i}}"
+                                        [(ngModel)]="empRecord.FromMonth" required>
+                                  <option [ngValue]="null" disabled selected hidden>Month</option>
+                                  <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                                </select>
+                                <div *ngIf="FromYear.invalid || FromMonth.invalid && IsValid"
+                                     class="text text-danger">
+                                  <div *ngIf="(FromYear.errors?.required || FromMonth.errors?.required)&& IsValid">
+                                    Present Post From Year <br /> And Month Is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="todate pr-2">
+                              <div class="formlabel">
+                                <label>To <span><i class="mdi mdi-hexagram"></i></span></label>
+                              </div>
+                              <div class="dobselection">
+                                <select name="ToYear{{i}}" #ToYear="ngModel" id="ToYear{{i}}"
+                                        [(ngModel)]="empRecord.ToYear" required>
+                                  <option [ngValue]="null" disabled selected hidden>Year</option>
+                                  <option *ngFor="let Year of EmploymentYear" value={{Year}}>{{Year}}</option>
+                                </select>
+                                <select name="ToMonth{{i}}" #ToMonth="ngModel" id="ToMonth{{i}}"
+                                        [(ngModel)]="empRecord.ToMonth" required>
+                                  <option [ngValue]="null" disabled selected hidden>Month</option>
+                                  <option *ngFor="let Month of Months" value={{Month}}>{{Month}}</option>
+                                </select>
+                                <div *ngIf="ToMonth.invalid || ToMonth.invalid && IsValid"
+                                     class="text text-danger">
+                                  <div *ngIf="(ToMonth.errors?.required || ToMonth.errors?.required )&& IsValid">
+                                    Present Post To Year <br /> And Month Is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 mb-3">
+                          <div class="formlabel">
+                            <label>Name of Employer <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <input type="text" name="EmployerName{{i}}" #EmployerName="ngModel" id="EmployerName{{i}}"
+                                 [(ngModel)]="empRecord.EmployerName" placeholder="Name of Employer " autocomplete="off" required>
+                          <div *ngIf="EmployerName.invalid && IsValid" class="text text-danger">
+                            <div *ngIf="EmployerName.errors?.required && IsValid">
+                              Name of Employer Is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 mb-3">
+                          <div class="formlabel">
+                            <label>Title of Position <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <input type="text" name="Position{{i}}" #Position="ngModel" id="Position{{i}}"
+                                 [(ngModel)]="empRecord.Position" placeholder="Title of Position " autocomplete="off" required>
+                          <div *ngIf="Position.invalid && IsValid" class="text text-danger">
+                            <div *ngIf="Position.errors?.required && IsValid">
+                              Title of Position Is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                          <div class="formlabel">
+                            <label>Address of Employer <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <textarea name="EmployerAddress{{i}}" #EmployerAddress="ngModel" id="EmployerAddress{{i}}"
+                                    [(ngModel)]="empRecord.EmployerAddress" placeholder="Address of Employer" autocomplete="off" required></textarea>
+                          <div *ngIf="EmployerAddress.invalid && IsValid" class="text text-danger">
+                            <div *ngIf="EmployerAddress.errors?.required && IsValid">
+                              Address of Employer Is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                          <div class="formlabel">
+                            <label>Responsibilities <span><i class="mdi mdi-hexagram"></i></span></label>
+                          </div>
+                          <textarea name="Responsibilities{{i}}" #Responsibilities="ngModel" id="Responsibilities{{i}}"
+                                    [(ngModel)]="empRecord.Responsibilities" placeholder="Responsibilities" autocomplete="off" required></textarea>
+                          <div *ngIf="Responsibilities.invalid && IsValid" class="text text-danger">
+                            <div *ngIf="Responsibilities.errors?.required && IsValid">
+                              Responsibilities Is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="submitbtn w-100 text-right">
+                    <button (click)="AddEmploymentRecord()"><i class="fa fa-plus"> Add more record</i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3 termsandconditions">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Terms and Conditions</h3>
+            </div>
+            <div class="instructionsinn">
+              <p>
+                I certify that the statements made by me in reply to the foregoing questions are true, complete and
+                correct to the best of my knowledge and belief. If selected as a participant into the Training
+                Programme, I confirm that I understand and will accept the following conditions:
+              </p>
+              <ol type="1">
+                <li>
+                  <p>
+                    To conduct myself at all times in a manner compatible with my responsibilities as a participant of
+                    the Training Programme and abide by the rules of the training institution and institutions in
+                    which I undertake training;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To refrain from engaging in political or commercial and any activities other than those governed
+                    by the Training Programme;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To provide all necessary information in a timely manner to the host institution and institutions
+                    to be visited so as to ensure the normal administration of the Training Programme;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To comply with the reporting requirements as stipulated by the Training Programme;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To return to my home country upon completion of my training programme and to resume work in my
+                    country;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Not to extend the length of my training or my stay for personal conveniences;
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    The International Seabed Authority accepts no responsibility for the medical and life insurance of
+                    the trainee or costs and any other responsibilities arising from injury, illness or death that may
+                    occur to the trainee during the training period.
+                  </p>
+                </li>
+              </ol>
+              <div class="termsaccept">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="customCheck6" name="TermsAndConditions" #TermsAndConditions="ngModel"
+                         [(ngModel)]="ObjIsa.TermsAndConditions" required>
+                  <label class="custom-control-label" for="customCheck6">
+                    By clicking the Submit button I agree to the terms and conditions above
+                    <span><i class="mdi mdi-hexagram"></i></span>
+                  </label>
+                  <div *ngIf="TermsAndConditions.invalid && IsValid" class="text text-danger">
+                    <div *ngIf="TermsAndConditions.errors?.required && IsValid">
+                      Agree to the terms and conditions is required.
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3 termsandconditions">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Supporting Documents</h3>
+            </div>
+            <div class="instructionsinn">
+              <div class="passportimgupload">
+                <input type="file" (change)="handleInputChange($event)" multiple accept=".pdf,.doc,.docx,.jpg,.jepg,.png">
+              </div>
+              <div class="attachedfilesmain">
+                <ng-container *ngFor="let file of ObjIsa.SupportingDocList;let f =index;">
+                  <div class="docfilesnameicon">
+                    <div class="dociconattach">
+                      <img src="../assets/img/docicons/{{file.FileType=='pdf' ?  'pdf.png'  : (file.FileType=='jpg' || file.FileType=='jepg') ? 'jpg.png' : file.FileType=='png' ? 'png.png' : (file.FileType=='docx' || file.FileType=='doc') ? 'doc.png' : '' }}" />
+                    </div>
+                    <div class="docattachcontent">
+                      <h6 class="filename mb-0">{{file.FileName}}</h6>
+                      <p class="attachfilesize mb-0 ">
+                        <i class="fa fa-times-circle-o  pl-2" aria-hidden="true" (click)="deleteFile(f)"></i>
+                      </p>
+                    </div>
+                  </div>
+                  
+                </ng-container>
+              </div>
+              <div class="edunote">
+                <p>
+                  Upload relevant documents or any other supporting documents. Click 'Choose file' repeatedly to add
+                  multiple files.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3 termsandconditions">
+
+          <div class="submitbtn text-center">
+            <button (click)="btnSubmit(Isa,template)">Submit</button>
+          </div>
+
+        </div>
+        <div class="col-12 mb-3 mt-3">
+          <div class="blockbgtheme">
+            <div class="pageheaderblock">
+              <h3>Application Status</h3>
+            </div>
+            <div class="applicationstatustable">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Reference Number</th>
+                    <th>Contractor Name</th>
+                    <th>Programme</th>
+                    <th>Year </th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  ng-class="" *ngFor="let application of ApplicationDetails">
+                    <td>IAS-{{application.id}}</td>
+                    <td>{{application.contractorName}}</td>
+                    <td>{{application.programName}}</td>
+                    <td>{{application.year}}</td>
+                    <td [ngClass]="[application.status == 'Open' ? 'isapplicationopen' : (application.status == 'Closed' ? 'isapplicationclose': 'isapplicationtyagain')]">{{application.status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+  <!-- Modal -->
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirm Information</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="border">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;"><h5>Personal Information</h5></div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">Contractor Name :<br /> <b>{{ObjIsa.ContraName}}</b></div>
+            <div class="col-md-4">Programme :<br /> <b>{{ObjIsa.ProgramApp}}</b></div>
+            <div class="col-md-4">Year :<br /> <b>{{ObjIsa.Year}}</b></div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              Name :<br /> <b>{{ObjIsa.Title}} {{ObjIsa.firstname}} {{ObjIsa.MiddleInitial}} </b>
+            </div>
+            <div class="col-md-4">Family Name :<br /> <b>{{ObjIsa.FamilyName}}</b></div>
+            <div class="col-md-4">
+              Date of Birth :<br /> <b>
+                {{ObjIsa.DateofBirth ? (ObjIsa.DateofBirth.month + '-' + ObjIsa.DateofBirth.day + '-' + ObjIsa.DateofBirth.year):""}}
+              </b>
+            </div>
+            <div class="col-md-4">Place of Birth (City) :<br /> <b>{{ObjIsa.PlaceofBirth}}</b></div>
+            <div class="col-md-4">Country of Birth :<br /> <b>{{ObjIsa.CountryName}}</b></div>
+            <div class="col-md-4">Country of Nationality :<br /> <b>{{ObjIsa.Nationality}}</b></div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">Gender :<br /> <b>{{ObjIsa.Sex}}</b></div>
+            <div class="col-md-4">Marital Status :<br /> <b>{{ObjIsa.MaritalStatus}}</b></div>
+            <div class="col-md-4">Residence Address : <br /><b>{{ObjIsa.ResidenceAddress}}</b></div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">Business Address :<br /> <b>{{ObjIsa.BusinessAddress}}</b></div>
+            <div class="col-md-4" style="display:none">Residence No. :<br /> <b>{{ObjIsa.ResidenceNo}}</b></div>
+            <div class="col-md-4" style="display:none">Office No. :<br /> <b>{{ObjIsa.OfficeNo}}</b></div>
+            <div class="col-md-4">Cell No. :<br /> <b>{{ObjIsa.CellNo}}</b></div>
+            <div class="col-md-4" style="display:none">Fax No. :<br /> <b>{{ObjIsa.FaxNo}}</b></div>
+            <div class="col-md-4">Email :<br /> <b>{{ObjIsa.Email}}</b></div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="border">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;"><h5>Passport Information</h5></div>
+        <div class="row col-sm-12">
+          <div class="row">
+            <div class="col-md-4">Passport No. : <br /><b>{{ObjIsa.PassportNo}}</b></div>
+            <div class="col-md-4">
+              Date of Issue : <br /><b>
+                {{ObjIsa.DateofIssue ? ( ObjIsa.DateofIssue?.month + '-' + this.ObjIsa.DateofIssue?.day + '-' + this.ObjIsa.DateofIssue?.year):""}}
+              </b>
+            </div>
+            <div class="col-md-4">Place of Issue :<br /> <b>{{ObjIsa.PlaceofIssue}}</b></div>
+            <div class="col-md-4">
+              Date of Expiry :<br /> <b>
+                {{ObjIsa.DateofExpiry ? (ObjIsa.DateofExpiry?.month + '-' + this.ObjIsa.DateofExpiry?.day + '-' + this.ObjIsa.DateofExpiry?.year):""}}
+              </b>
+            </div>
+          </div>
+
+          <!--<div class="col-md-4">
+            Passport Photo:
+            <div style="max-width:200px;">
+              <img class="img-fluid" id="PassportPhoto" alt="image" />
+            </div>
+          </div>-->
+        </div>
+      </div>
+      <br />
+
+      <div class="border">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;"><h5>Proficiency in English</h5></div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">Listening :<br /> <b>{{ObjIsa.Listening }}</b></div>
+            <div class="col-md-4">Speaking :<br /> <b>{{ObjIsa.Speaking }}</b></div>
+            <div class="col-md-4">Writing :<br /> <b>{{ObjIsa.Writing }}</b></div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">Reading :<br /> <b>{{ObjIsa.Reading }}</b></div>
+            <div class="col-md-4">Other Language : <br /><b>{{ObjIsa.OtherLanguage}}</b></div>
+            <div class="col-md-4">Mother Tongue :<br /> <b>{{ObjIsa.MotherLanguage}}</b></div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="border">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;"><h5>Education (University or equivalent)</h5></div>
+        <div class="blockborder" *ngFor="let Education of ObjIsa.Education; let i = index">
+
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">Name of Institution : <br /><b>{{Education.NameofInstitution}}</b></div>
+              <!--<div class="col-md-4">Program Applying For :<br /> <b>{{ObjIsa.ProgramApplying}}</b></div>-->
+              <div class="col-md-4">Education From Year :<br /> <b>{{Education.EducationFromYear}}</b></div>
+              <div class="col-md-4">Education From Month :<br /> <b>{{Education.EducationFromMonth}}</b></div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <!--<div class="col-md-4">Education From Month :<br /> <b>{{ObjIsa.EducationFromMonth}}</b></div>-->
+              <div class="col-md-4">Education To Year :<br /> <b>{{Education.EducationToYear}}</b></div>
+              <div class="col-md-4">Education To Month : <br /><b>{{Education.EducationToMonth}}</b></div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">Address :<br /> <b>{{Education.Address}}</b></div>
+              <div class="col-md-4">Field of Study :<br /> <b>{{Education.FieldofStudy}}<br /><i class="fa fa-dot-circle-o" aria-hidden="true" *ngIf="Education.FieldofStudySubCategory"></i> {{Education.FieldofStudySubCategory ? Education.FieldofStudySubCategory :""}}</b></div>
+              <div class="col-md-4">
+                Qualification :<br /> <b>
+                  {{Education.QualificationName}}
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="border">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;">
+          <h5>Additional skills & Experience</h5>
+        </div>
+        <div class="row col-sm-12">
+          <div class="col-sm-12">Previously selected for an ISA Contractor Training Programme : <br /><b> {{ObjIsa.Haveyoubeenpreviouslyselected}}</b></div>
+          <div class="col-sm-12" *ngIf="ObjIsa.Haveyoubeenpreviouslyselected == 'Yes'">In Which programme and In Which year : <br /><b>{{ObjIsa.WhichprogrammeName}} - {{ObjIsa.Whichyear}}</b></div>
+        </div>
+        <div class="row col-sm-12">
+          <div class="col-sm-12" *ngIf="ObjIsa.Haveyoubeenpreviouslyselected == 'Yes' && ObjIsa.Whichprogramme != null">Participate in the training : <br /><b> {{ObjIsa.Didyouparticipate}}</b></div>
+        </div>
+        <div class="row col-sm-12">
+          <div class="col-sm-12">Fields/Topics of Scientific Interest : <br /><b> {{ObjIsa.FieldsofScientificInterest}}</b></div>
+          <div class="col-sm-12">Research undertaken : <br /><b>{{ObjIsa.Researchundertakenifany}}</b></div>
+        </div>
+        <div class="row col-sm-12">
+          <div class="col-sm-12">Participation in international symposia : <br /><b>{{ObjIsa.Participationininternationalsymposia}}</b></div>
+          <div class="col-sm-12">At-sea Working Experience : <br /><b>{{ObjIsa.AtseaWorkingExperience}}</b></div>
+        </div>
+        <div class="row col-sm-12">
+          <div class="col-sm-12">Indicate how this Training Programme : <br /><b>{{ObjIsa.TrainingProgrammewillfurtheryourcareer}}</b></div>
+        </div>
+
+      </div><br />
+
+      <div class="border edudetailsblocksmodal">
+        <div class="blockbgtheme pageheaderblock mb-0" style="color:white; text-align:left;"><h5>Employment Record</h5></div>
+        <div class="blockborder" *ngFor="let empRecord of ObjIsa.Employment; let i = index">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">
+                Present Post From Year And Month :<br />
+                <b>
+                  {{empRecord.FromYear}}
+                  {{empRecord.FromMonth}}
+                </b>
+              </div>
+              <div class="col-md-4">
+                Present Post To Year And Month :<br />
+                <b>
+                  {{empRecord.ToYear}}
+                  {{empRecord.ToMonth}}
+                </b>
+              </div>
+              <div class="col-md-4">Name of Employer : <br /><b>{{empRecord.EmployerName}}</b></div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">Title of Position :<br /> <b>{{empRecord.Position}}</b></div>
+              <div class="col-md-4">Address of Employer :<br /> <b>{{empRecord.EmployerAddress}}</b></div>
+              <div class="col-md-4">Responsibilities :<br /> <b>{{empRecord.Responsibilities}}</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-Success" data-dismiss="modal" (click)="btnSave()">Apply</button>
+      <button type="button" id="close" class="btn btn-danger" (click)="CloseModal()">Close</button>
+    </div>
+  </ng-template>
+
+</form>
+
+
+

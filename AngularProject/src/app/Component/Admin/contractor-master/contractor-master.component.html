@@ -1,0 +1,116 @@
+<form role="form" id="ContractorMaster" name="ContractorMaster" #ContractorMaster="ngForm" novalidate>
+  <div class="main-panel" id="griduser">
+    <h2 class="main-title">Contractor List</h2>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-header headerbgprimary">
+                <div class="row align-items-center">
+                  <div class="col-sm-6"><h4 class="card-title mt-0"> Contractor List</h4></div>
+                  <div class="col-sm-5 ms-auto text-right">
+                    <!--<button class="btn btn-info mr-3" (click)="exportToExcel()">
+                    Export to Excel
+                  </button>-->
+                    <button class="btn btn-circle btn-success" (click)="AddContractor(Contractor)">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-condensed table-border customTable" #epltable>
+                    <thead>
+                      <tr>
+                        <th><b>Active</b></th>
+
+                        <th><b>Contractor Name</b></th>
+                        <th style="text-align:right" *ngIf="isShowAction"><b>Action</b></th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let Contractorlist of ContractorMasterList;let i=index">
+                      <td>
+                        <div class="customCheckbox">
+                          <!--<input type="checkbox" [checked]="Contractorlist.isActive" aria-label="Checkbox for following text input" disabled>-->
+                          <input type="checkbox" id="i" [checked]="Contractorlist.isActive" aria-label="Checkbox for following text input" disabled>
+                          <label for="i"></label>
+                        </div>
+                      </td>
+                      <td>{{Contractorlist.contractorName}}</td>
+                      <td style="text-align:right" *ngIf="isShowAction">
+                        <button type="button" class="btn btn-info btn-circle btn-xl fa fa-edit" (click)="btnEdit(Contractorlist,Contractor)"></button>&nbsp;
+                        <button type="button" (click)="btnDeleteuser(Contractorlist.id,ContractorDeleteConfirm)" class="btn btn-danger btn-circle btn-xl fa fa-trash"></button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #Contractor>
+    <div class="modal-header">
+      <h4 *ngIf="IsDisplay" class="modal-title pull-left">Add Contractor</h4>
+      <h4 *ngIf="!IsDisplay" class="modal-title pull-left">Edit Contractor</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="CloseModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <!--<label style="color:black">Active</label>-->
+          <div>
+            <!--<input type="checkbox" #IsActive="ngModel" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="objContractor.isActive" [checked]="objContractor.isActive" />-->
+            <div class="customCheckbox">
+              <!--<input type="checkbox" [checked]="Contractorlist.isActive" aria-label="Checkbox for following text input" disabled>-->
+              <input type="checkbox" id="isactiveid" #IsActive="ngModel" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="objContractor.isActive" [checked]="objContractor.isActive">
+              <label for="isactiveid">Active</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <label style="color:black">Contractor Name <span style="color: red;">*</span></label>
+          <div>
+            <input type="text" name="contractorName" #contractorName="ngModel" [(ngModel)]="objContractor.contractorName"
+                   class="form-control" placeholder="Enter the Contractor name" autocomplete="off" required />
+            <div *ngIf="contractorName.invalid && IsValid" class="text text-danger">
+              <div *ngIf="contractorName.errors?.required && IsValid">
+                Contractor Name Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="btnsubmit(ContractorMaster)">Submit</button>
+      <button type="button" id="close" class="btn btn-danger" (click)="CloseModal()">Close</button>
+    </div>
+  </ng-template>
+
+  <!-- Confirm Modal -->
+  <ng-template #ContractorDeleteConfirm>
+    <div class="modal-body">
+      <div class="row">
+        <h6>Are You Sure Want To Detete This Recored?</h6>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="ConfirmDelete()">Ok</button>
+      <button type="button" class="btn btn-danger" (click)="this.modalRef.hide()">Cancel</button>
+    </div>
+  </ng-template>
+</form>

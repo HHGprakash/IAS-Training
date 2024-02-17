@@ -1,0 +1,12 @@
+E:\TFS-Projects\IAS-Training\Utility\bin\Debug\net5.0\Utility.deps.json
+E:\TFS-Projects\IAS-Training\Utility\bin\Debug\net5.0\Utility.dll
+E:\TFS-Projects\IAS-Training\Utility\bin\Debug\net5.0\ref\Utility.dll
+E:\TFS-Projects\IAS-Training\Utility\bin\Debug\net5.0\Utility.pdb
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.csproj.AssemblyReference.cache
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.GeneratedMSBuildEditorConfig.editorconfig
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.AssemblyInfoInputs.cache
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.AssemblyInfo.cs
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.csproj.CoreCompileInputs.cache
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.dll
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\ref\Utility.dll
+E:\TFS-Projects\IAS-Training\Utility\obj\Debug\net5.0\Utility.pdb

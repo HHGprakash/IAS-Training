@@ -1,0 +1,115 @@
+<form role="form" id="ProgramMaster" name="ProgramMaster" #ProgramMaster="ngForm" novalidate>
+  <div class="main-panel" id="griduser">
+    <h2 class="main-title">Program List</h2>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-header headerbgprimary">
+                <div class="row align-items-center">
+                  <div class="col-sm-6"><h4 class="card-title mt-0"> Program List</h4></div>
+                  <div class="col-sm-5 ms-auto text-right">
+                    <!--<button class="btn btn-info mr-3" (click)="exportToExcel()">
+                    Export to Excel
+                  </button>-->
+                    <button class="btn btn-circle btn-success" (click)="AddProgramMaster(Program)">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-condensed table-border customTable" #epltable>
+                    <thead>
+                      <tr>
+                        <th><b>Active</b></th>
+                        <th><b>Program Name</b></th>
+                        <th style="text-align:right" *ngIf="isShowAction"><b>Action</b></th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let Programlist of ProgramMasterList">
+                      <td>
+                        <!--<div class="">
+                        <input type="checkbox" [checked]="Programlist.isActive" aria-label="Checkbox for following text input" disabled>
+                      </div>-->
+                        <div class="customCheckbox">
+                          <input type="checkbox" id="i" [checked]="Programlist.isActive" aria-label="Checkbox for following text input" disabled>
+                          <label for="i"></label>
+                        </div>
+                      </td>
+                      <td>{{Programlist.program}}</td>
+                      <td style="text-align:right" *ngIf="isShowAction">
+                        <button type="button" class="btn btn-info btn-circle btn-xl fa fa-edit" (click)="btnEdit(Programlist,Program)"></button>&nbsp;
+                        <button type="button" (click)="btnDeleteProgram(Programlist.id,ProgramDeleteConfirm)" class="btn btn-danger btn-circle btn-xl fa fa-trash"></button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #Program>
+    <div class="modal-header">
+      <h4 *ngIf="IsDisplay" class="modal-title pull-left">Add Program</h4>
+      <h4 *ngIf="!IsDisplay" class="modal-title pull-left">Edit Program</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="CloseModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <!--<label style="color:black">Active</label>-->
+          <div>
+            <!--<input type="checkbox" #IsActive="ngModel" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="objProgram.isActive" [checked]="objProgram.isActive" />-->
+            <div class="customCheckbox">
+              <input type="checkbox" id="isactiveid" #IsActive="ngModel" [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="objProgram.isActive" [checked]="objProgram.isActive">
+              <label for="isactiveid">Active</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <label style="color:black">Program Name <span style="color: red;">*</span></label>
+          <div>
+            <input type="text" name="program" #program="ngModel" [(ngModel)]="objProgram.program" autocomplete="off"
+                   class="form-control" required placeholder="Enter the Program Name" />
+            <div *ngIf="program.invalid && IsValid" class="text text-danger">
+              <div *ngIf="program.errors?.required && IsValid">
+                Program Name Is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="btnsubmit(ProgramMaster)">Submit</button>
+      <button type="button" id="close" class="btn btn-danger" (click)="CloseModal()">Close</button>
+    </div>
+  </ng-template>
+
+  <!-- Confirm Modal -->
+  <ng-template #ProgramDeleteConfirm>
+    <div class="modal-body">
+      <div class="row">
+        <h6>Are You Sure Want To Detete This Recored?</h6>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="ConfirmDelete()">Ok</button>
+      <button type="button" class="btn btn-danger" (click)="this.modalRef.hide()">Cancel</button>
+    </div>
+  </ng-template>
+</form>
