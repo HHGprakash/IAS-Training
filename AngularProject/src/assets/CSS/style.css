@@ -73,6 +73,11 @@ table tr td a{
   color: #fff !important;
   background-color: #5F4496 !important;
 }
+.CommentColTable {
+  min-width: 300px;
+  max-width: 300px;
+  white-space: break-spaces;
+}
 /*======================//General style=====================*/
 /*================================/Modal============================*/
 .modal-header {

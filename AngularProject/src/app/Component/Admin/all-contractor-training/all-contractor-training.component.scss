@@ -177,11 +177,16 @@ td.reftheam {
 
 
 // sticky scroll css
+.customTable  tr td {
+  max-width: 300px;
+  white-space: normal;
+}
 
 .customTable thead tr th {
   white-space: nowrap;
   top: 0;
   background-color: #fff;
+  max-width: 300px;
 } 
 .table-responsive{
   overflow-x: auto;

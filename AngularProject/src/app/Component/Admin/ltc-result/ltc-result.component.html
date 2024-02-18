@@ -67,13 +67,13 @@
                         <th class="fstfxstablevwinn">Ref. No.</th>
                         <th class="secfxstablevwinn">Candidate</th>
                         <th>Age</th>
-                        <th>Gen</th>
+                        <th>Gender</th>
                         <th>Country of Nationality</th>
                         <th>Region</th>
                         <th>Country Class.</th>
                         <th>Education</th>
                         <th>Email</th>
-                        <th>Comment</th>
+                        <th class="CommentColTable">Comment</th>
                         <th hidden>Submission Date</th>
                         <th *ngFor="let LtcUser of LtcUserList;let j = index">
                           {{LtcUser.firstName}}
@@ -95,7 +95,7 @@
                           <td>{{Contractor.countryClass}}</td>
                           <td>{{Contractor.qualification}}</td>
                           <td>{{Contractor.email}}</td>
-                          <td [innerHTML]="Contractor.comments"></td>
+                          <td class="CommentColTable" [innerHTML]="Contractor.comments"></td>
                           <td hidden>{{Contractor.submissionDate | date: 'YYYY-MM-dd' }}</td>
                           <td *ngFor="let LtcRank of Contractor.LtcRank;let j = index">
                             {{LtcRank.Rank}}

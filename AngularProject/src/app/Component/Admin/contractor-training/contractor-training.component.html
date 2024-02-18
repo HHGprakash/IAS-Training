@@ -68,13 +68,13 @@
                         <th class="fstfxstablevwinn">Ref. No.</th>
                         <th class="secfxstablevwinn">Candidate</th>
                         <th>Age</th>
-                        <th>Gen</th>
+                        <th>Gender</th>
                         <th>Country of Nationality</th>
                         <th>Region</th>
                         <th>Country Class.</th>
                         <th>Education</th>
                         <th>Email</th>
-                        <th>Comment</th>
+                        <th class="CommentColTable">Comment</th>
                         <th hidden>Submission Date</th>
                         <th>Status</th>
                         <!--<th *ngIf="IsRanking">LTC</th>-->
@@ -101,7 +101,7 @@
                         <td>{{Contractor.countryClass}}</td>
                         <td>{{Contractor.qualification}}</td>
                         <td>{{Contractor.email}}</td>
-                        <td [innerHTML]="Contractor.comments"></td>
+                        <td class="CommentColTable" [innerHTML]="Contractor.comments"></td>
                         <td hidden>{{Contractor.submissionDate | date: 'YYYY-MM-dd' }}</td>
                         <td style="text-align:center">
                           <span class="status" [ngClass]="{'gray':Contractor.status==0,'green':Contractor.status==1,'red':Contractor.status==2}">{{Contractor.status==0 ? 'Pending':Contractor.status==1 ? 'Approved':Contractor.status==2 ? 'Rejected':''}}</span>
