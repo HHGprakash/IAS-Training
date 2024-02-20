@@ -78,6 +78,11 @@ table tr td a{
   max-width: 300px;
   white-space: break-spaces;
 }
+.RegionColTable {
+  min-width: 200px;
+  max-width: 300px;
+  white-space: break-spaces;
+}
 /*======================//General style=====================*/
 /*================================/Modal============================*/
 .modal-header {

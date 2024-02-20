@@ -71,7 +71,7 @@
                         <th>Country of Nationality</th>
                         <th>Email</th>
                         <th class="CommentColTable">Comment</th>
-                        <th>Region</th>
+                        <th class="RegionColTable">Region</th>
                         <th>Country Class.</th>
                         <th>Education</th>
                         <th>Submission Date</th>
@@ -91,7 +91,7 @@
                       <td>{{Contractor.nationality}}</td>
                       <td>{{Contractor.email}}</td>
                       <td class="CommentColTable" [innerHTML]="Contractor.comments"></td>
-                      <td>{{Contractor.groupName}}</td>
+                      <td class="RegionColTable">{{Contractor.groupName}}</td>
                       <td>{{Contractor.countryClass}}</td>
                       <td>{{Contractor.qualification}}</td>
                       <td>{{Contractor.submissionDate | date: 'YYYY-MM-dd' }}</td>
